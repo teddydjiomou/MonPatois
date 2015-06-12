@@ -1,0 +1,84 @@
+	<div align="center">
+	<h2><%= @language.name %></h2>
+	<table class="show_language">
+	  <tr align="left">
+	  	<th><%= t(:origin) %>:</th>
+	    <td width="85%"><p><%= @language.origin %></p></td>
+	  </tr>
+	  <tr align="left">
+	  	<th><%= t(:description) %>:</th>
+	    <td width="85%"><p><%= @language.description %></p></td>
+	  </tr>
+	</table>
+	
+	<%= link_to image_tag('/images/edit_button_big.png'), edit_language_path(@language), :rel=>'facebox', :title=>t(:Edit) if can? :update, @language %> 
+	<%= link_to image_tag('/images/delete_button_big2.png'), delete_language_path(@language), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} if can? :destroy, @language %> <br />
+	<%= link_to image_tag('/images/back_button.png'), root_path, :title=>t(:Back) %>
+	<br />
+	<br />
+	<%= link_to t(:Lexical), '#',:class=>"default_button", :id=>"lexique_page" %>
+	<%= link_to t(:Forum), '#', :class=>"default_button", :id=>"forum_page" %>
+	<br />
+	<br />
+	
+	</div>
+	
+	<div class="lexique">
+		<div class="dictionary_title">	
+			<h2><%= t(:dictionary)%></h2>
+			<div class="alphabet" >	
+				<% ('A'..'Z').to_a.each do |letter| %>
+				<%= link_to letter, '#dictionary', :onclick => "load_dictionary('"+@language.name+"', '"+ letter + "', '1')" %> |
+				<%end%>	
+			</div>
+		</div>
+		<div id="dictionary" class="dictionary"></div>
+		<div id="expressions" class="expressions">	</div>
+		<div class="expressions_title">
+			<h2><%= t(:expressions)%></h2>
+			<div>
+				<br />
+				<%= link_to t(:New_expression), new_expression_path(:language => @language), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
+			</div>
+			<!--%= link_to 'Expressions', '#', :onclick => 'load_expressions("'+@language.name+'")' %-->
+		</div>	
+	</div>
+	
+	<div class="forum" style="display: none;">
+		<div id="discussions" class="discussions">	</div>
+		<br />
+		&nbsp;
+		<%= link_to t(:New_discussion), new_discussion_path(:language => @language), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
+		<br />
+		<br />
+	</div>
+	
+<script type="text/javascript">
+  load_dictionary('<%=@language.name%>', 'a', '1');
+  load_expressions('<%=@language.name%>', '1');
+  load_discussions('<%=@language.name%>', '1');
+</script>
+
+<script type="text/javascript" >
+  jQuery(document).ready(function($) {
+	  $('a[rel*=facebox]').facebox({loadingImage : '/images/loading.gif', closeImage   : '/images/closelabel.png'}) 
+	});
+	
+$(function(){
+		// Calling Lexical Page
+		$("#lexique_page").click(function(){
+			$(".forum").hide();
+			$(".lexique").show();
+			return false;
+		});
+
+		// Calling Forum Page
+		$("#forum_page").click(function(){
+			$(".lexique").hide();
+			$(".forum").show();
+			return false;
+		});
+
+});
+</script>
+

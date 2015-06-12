@@ -1,0 +1,28 @@
+<dl id="menu">
+  <dt><a href="#">Home</a></dt>
+  <dd id="smenu1" onmouseover="javascript:montre('smenu1');" onmouseout="javascript:montre();"></dd>
+  <dt onmouseover="javascript:montre('smenu2');" onmouseout="javascript:montre();">Dicos</dt>
+  <dd id="smenu2" onmouseover="javascript:montre('smenu2');" onmouseout="javascript:montre();">
+   <ul>
+    <li><a href="#">Sub Menu 2.1</a></li>
+    <li><a href="#">Sub Menu 2.2</a></li>
+   </ul>
+  </dd>
+  <dt><a href="#">Collabore</a></dt>
+  <dd id="smenu3" onmouseover="javascript:montre('smenu3');" onmouseout="javascript:montre();"></dd>
+  <dt><a href="#">Login</a></dt>
+  <dd id="smenu4" onmouseover="javascript:montre('smenu4');" onmouseout="javascript:montre();"></dd>
+</dl>
+
+<script type="text/javascript">
+<!--
+window.onload=montre;
+function montre(id) {
+var d = document.getElementById(id);
+for (var i = 1; i<=10; i++) {
+if (document.getElementById('smenu'+i)) {document.getElementById('smenu'+i).style.display='none';}
+}
+if (d) {d.style.display='block';}
+}
+//-->
+</script>

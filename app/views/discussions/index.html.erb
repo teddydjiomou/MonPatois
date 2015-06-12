@@ -1,0 +1,75 @@
+<%= render :partial => 'languages/show', :locals => {:language => @language} %>
+<br />
+<br />
+<div class="discussions">
+	<table class="discussion_table">   
+		<th><%= link_to t(:New_discussion), new_discussion_path(:language => @language), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %></th>
+	    <% @discussions.each do |discu| %>
+	    <tr valign="top" style="border-bottom: 1px solid #ED6347;">
+	    	<td width="90%"> 
+	    		<br />
+	    		<h3 class="discussions_link"><%= link_to discu.title, '#discussions', :onclick => "show_hide_comments('discu"+discu.id.to_s+"')" %></h3> <%= t(:proposed_by) + " " + discu.user.name + ", " + discu.comments.count.to_s + " " + t(:answers) %>
+	    		<div id=<%= 'discu'+discu.id.to_s %> style="display: none;">	
+								<table style="width: 100%;">				
+									<% discu.comments.each do |comment| %>	
+										<tr valign="top" style="border-bottom: 1px solid #ED6347;">	
+											<th width="20%" align="right">		
+												<br />							
+												<%= comment.user.name + ':'%>
+											</th>
+											<td width="70%">									
+												<p><%= comment.text %></p>
+											</td>
+											<td width="10%">
+												<br />
+												<% if can? :ud, comment %>
+													<%= link_to image_tag('/images/edit_button.png'), edit_comment_path(comment),:rel => 'facebox', :title=>t(:Edit) %>
+													&nbsp;
+													<%= link_to image_tag('/images/delete_button2.png'), delete_comment_path(comment), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} %>
+												<%end%>
+											</td>
+										</tr>
+									<% end %>	
+								</table>	
+				</div> 
+	    	</td>
+			<td >	
+				<p>			
+					<% if current_user %> 										
+						<%= link_to image_tag('/images/comment_button.png'), new_comment_path(:discussion => discu), :rel => 'facebox', :title=>t(:reply) %>
+						&nbsp;
+						<% if can? :ud, discu %>
+							<%= link_to image_tag('/images/edit_button.png'), edit_discussion_path(discu), :rel => 'facebox', :title=>t(:Edit) %>
+							&nbsp;
+							<%= link_to image_tag('/images/delete_button2.png'), delete_discussion_path(discu), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} %> 
+							<br />
+						<%end%>
+					<% end %>
+				</p>
+			</td>
+		</tr>
+		<%end%>
+	</table>   
+	<br />
+	
+	<div style="font-size: 10px;">
+		<% if @num_pages != '1' %>
+		  	<% ('1'..@num_pages).to_a.each do |page| %>
+				<%= link_to page, '#forum', :onclick => "load_discussions('"+@language.name+"', '"+ page + "')" %> -
+			<%end%>	
+		<% end %>
+	</div>
+</div>	
+	<script type="text/javascript" >
+	  jQuery(document).ready(function($) {
+		  $('a[rel*=facebox]').facebox({loadingImage : '/images/loading.gif', closeImage   : '/images/closelabel.png'}) 
+		});
+	
+	function show_hide_comments(id) {
+	       var e = document.getElementById(id);
+	       if(e.style.display == 'block')
+	          e.style.display = 'none';
+	       else
+	          e.style.display = 'block';
+	   };
+	</script>  

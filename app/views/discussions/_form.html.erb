@@ -1,0 +1,30 @@
+<%= form_for(@discussion) do |f| %>
+  <% if @discussion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@discussion.errors.count, "error") %> prohibited this discussion from being saved:</h2>
+
+      <ul>
+      <% @discussion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="default_fields">
+    <%= f.label :title, t(:title) %>
+    <%= f.text_area :title, :cols => "100", :rows => "1" %>
+  </div>
+  <br />
+  <div class="default_fields" style="display: none;">
+    <%= f.label :user_id %>
+    <%= f.number_field :user_id, :value => (@discussion.user_id || current_user.id) %>
+  </div>
+  <div class="default_fields" style="display: none;">
+    <%= f.label :language_id %>
+    <%= f.number_field :language_id, :value => @language %>
+  </div>
+  <div class="actions">
+    <%= f.submit t(:OK), :class=>"default_button" %>
+  </div>
+<% end %>

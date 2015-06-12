@@ -1,0 +1,41 @@
+
+  <table class="lexique">
+    <% @words.each do |word| %>
+    	<tr style="border-bottom: 1px solid #ED6347;">
+		    <td> 
+		    	<% if word.translations.count < 3 and current_user %>
+				<%= link_to word.french, new_translation_path(:word => word, :language => @language), :rel => 'facebox', :title=>t(:translate) if word.french? %>
+				<% else %>
+				<%= word.french if word.french? %>
+				<% end %>
+			</td>
+			<td> 
+				<%= word.english if word.english? %>
+			</td>
+				<% word.translations.where('language_id = ?', @language).each do |trans| %>
+					<td>
+						<%= trans.trans %>
+						<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'positive')", :title=>t(:vote_plus) %>
+						<%= '(' + trans.score.to_s + ')' %>
+						<%= link_to image_tag('/images/mine_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'negative')", :title=>t(:vote_mine) %>
+						
+					</td>
+				<%end%>
+
+		</tr>
+		
+	<%end%>
+  </table>
+  <br />
+  <div style="font-size: 10px;">
+  	<% if @num_pages != '1' %>
+	  	<% ('1'..@num_pages).to_a.each do |page| %>
+			<%= link_to page, '#dictionary', :onclick => "load_dictionary('"+@language.name+"', '"+ @letter + "', '"+ page + "')" %> -
+		<%end%>	
+	<% end %>
+  </div>
+<script type="text/javascript" >
+  jQuery(document).ready(function($) {
+	  $('a[rel*=facebox]').facebox({loadingImage : '/images/loading.gif', closeImage   : '/images/closelabel.png'}) 
+	});
+</script>

@@ -1,0 +1,45 @@
+<%= form_for(@language) do |f| %>
+  <% if @language.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@language.errors.count, "error") %> prohibited this language from being saved:</h2>
+
+      <ul>
+      <% @language.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="default_fields">
+    <%= f.label :name, t(:name) %>
+    <%= f.text_field :name %>
+  </div>
+  <br />
+  <div class="default_fields">
+    <%= f.label :description, t(:description) %>
+    <%= f.text_area :description, :cols => "50", :rows => "3" %>
+  </div>
+  <br />
+  <div class="default_fields">
+    <%= f.label :origin, t(:origin) %>
+    <%= f.text_area :origin, :cols => "50", :rows => "3" %>
+  </div>
+  <br />
+  <% if current_user.is_admin? %>
+	  <div class="default_fields">
+	    <%= f.label :verify, t(:verify) %>
+	    <%= f.text_field :verify %>
+	  </div>
+	  <br />
+  <% end %>
+  <div class="default_fields" style="display: none;">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id, :value => (@language.user_id || current_user.id)  %>
+  </div>
+  <br />
+  
+  <div class="actions">
+    <%= f.submit t(:OK), :class=>"default_button"%>
+  </div>
+<% end %>

@@ -1,0 +1,36 @@
+<%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="default_fields">
+    <%= f.text_area :text, :cols => "50", :rows => "3" %>
+  </div>
+  <br />
+  <div class="default_fields" style="display: none;>
+    <%= f.label :user_id %>
+    <%= f.number_field :user_id, :value => (@comment.user_id || current_user.id) %>
+  </div>
+
+  <div class="default_fields" style="display: none;>
+    <%= f.label :expression_id %>
+    <%= f.text_field :expression_id, :value => @expression %>
+  </div>
+  
+  <div class="default_fields" style="display: none;>
+    <%= f.label :discussion_id %>
+    <%= f.text_field :discussion_id, :value => @discussion %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t(:OK), :class=>"default_button"%>
+  </div>
+<% end %>

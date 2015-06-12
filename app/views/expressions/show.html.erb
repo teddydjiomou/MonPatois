@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b></b>
+  <%= @expression.trans %>
+</p>
+
+<p>
+  <b><%= t(:sure_to_delete)%>?</b> 
+</p>
+
+<%= button_to t(:OK), {:action => "destroy", :controller => "expressions", :id => @expression}, :method => :delete %>

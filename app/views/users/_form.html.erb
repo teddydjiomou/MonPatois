@@ -1,0 +1,49 @@
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+<% if @type == 'profile_info' %>
+	<%= form_for(@user) do |f| %>
+	  <div class="field">
+	    <%= f.label :name, t(:full_name)%><br />
+	    <%= f.text_field :name %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :mail, t(:email_address)%><br />
+	    <%= f.text_field :mail %>
+	  </div>
+	  <div class="actions">
+	    <%= f.submit t(:OK)%>
+	  </div>
+  	<% end %>
+<% end %>
+  
+<% if @type == 'password' %>
+	<%= form_for(@user, :url => {:action => "update_password"}) do |f| %>
+  	  <div class="field">
+	    <%= f.label :old_password, t(:old_password) %><br />
+	    <%= f.password_field :old_password %>
+	  </div>
+  	  <div class="field">
+	    <%= f.label :new_password, t(:new_password) %><br />
+	    <%= f.password_field :new_password %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :password_confirmation, t(:password_confirmation) %><br />
+	    <%= f.password_field :password_confirmation %>
+	  </div>
+	  <div class="actions">
+	    <%= f.submit t(:OK)%>
+	  </div>
+  <% end %>
+<% end %>

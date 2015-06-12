@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  french: MyText
+  english: MyText
+  trans: MyText
+
+two:
+  french: MyText
+  english: MyText
+  trans: MyText

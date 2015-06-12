@@ -1,0 +1,28 @@
+<div align="center">
+	<h2 class="language_title"><%= language.name %></h2>
+	<table class="show_language">
+	  <tr align="left">
+	  	<th><%= t(:origin) %>:</th>
+	    <td width="85%"><p><%= language.origin %></p></td>
+	  </tr>
+	  <tr align="left">
+	  	<th><%= t(:description) %>:</th>
+	    <td width="85%"><p><%= language.description %></p></td>
+	  </tr>
+	</table>
+	
+	<%= link_to image_tag('/images/edit_button_big.png'), edit_language_path(language), :rel=>'facebox', :title=>t(:Edit) if can? :update, language %> 
+	<%= link_to image_tag('/images/delete_button_big2.png'), delete_language_path(language), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} if can? :destroy, language %> <br />
+	<br />
+	<%= link_to t(:Lexical), language_path(language),:class=>"default_button", :id=>"lexique_page" %>
+	&nbsp;
+	<%= link_to t(:Forum), discussions_path(:language=>language, :page=>'1'), :class=>"default_button", :id=>"forum_page" %>
+	<br />
+	<br />
+</div>
+
+<script>
+
+	window.location.hash = '#lexiquefocus';
+	
+</script>	

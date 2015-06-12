@@ -1,0 +1,39 @@
+<%= form_for(@translation) do |f| %>
+
+  <% if @translation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@translation.errors.count, "error") %> prohibited this translation from being saved:</h2>
+
+      <ul>
+      <% @translation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="default_fields" >
+    <%= f.label :trans, @word.to_s << " en " << @language.to_s << ":" %>
+    <%= f.text_field :trans %>
+  </div>
+  <br />
+  <div class="default_fields" style="display: none;">
+    <%= f.label :language_id %><br />
+    <%= f.text_field :language_id, :value => params[:language]  %>
+  </div>
+  
+  <div class="default_fields" style="display: none;">
+    <%= f.label :word_id %><br />
+    <%= f.text_field :word_id, :value => params[:word]%>
+  </div>
+  
+  <div class="default_fields" style="display: none;">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id, :value => current_user.id  %>
+  </div>
+
+  <div id="submitButton" class="actions">
+    <%= f.submit t(:OK), :class=>"default_button" %>
+  </div>
+  
+<% end %>
