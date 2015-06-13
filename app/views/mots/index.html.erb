@@ -1,0 +1,29 @@
+<h1>Listing mots</h1>
+
+<table>
+  <tr>
+    <th>Francais</th>
+    <th>Commentaire</th>
+    <th>Anglais</th>
+    <th>Patois</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @mots.each do |mot| %>
+  <tr>
+    <td><%= mot.francais %></td>
+    <td><%= mot.commentaire %></td>
+    <td><%= mot.anglais %></td>
+    <td><%= mot.patois %></td>
+    <td><%= link_to 'Show', mot %></td>
+    <td><%= link_to 'Edit', edit_mot_path(mot) %></td>
+    <td><%= link_to 'Destroy', mot, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Mot', new_mot_path %>

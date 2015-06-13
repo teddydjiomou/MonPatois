@@ -11,5 +11,4 @@
  *= require_self
  *= require /javascripts/facebox.js
  *= require /javascripts/jquery.js
- *= require_tree .
 */
