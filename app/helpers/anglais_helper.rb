@@ -1,2 +1,0 @@
-module AnglaisHelper
-end
