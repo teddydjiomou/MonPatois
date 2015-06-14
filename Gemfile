@@ -22,18 +22,19 @@ gem "rb-readline"#, '0.4.2'
 gem "devise"
 gem 'cancan'
 gem 'jqcloud-rails'
-#gem 'activerecord-mysql2-adapter'
+gem 'mysql2'
+gem 'activerecord-mysql2-adapter'
 gem 'therubyracer', :platforms => :ruby
 #gem 'execjs' #on Win8 use the following:
 gem 'execjs', :git => 'git://github.com/kennyj/execjs.git', :branch => 'rails_issue_2880' #Windows 8
 
-group :development do
-  gem 'mysql2'
-end
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
+#group :development do
+#  gem 'mysql2'
+#end
+#group :production do
+#  gem 'pg'
+#  gem 'rails_12factor'
+#end
 
 # Gems used only for assets and not required
 # in production environments by default.
