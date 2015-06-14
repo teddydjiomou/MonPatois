@@ -23,7 +23,7 @@ gem "devise"
 gem 'cancan'
 gem 'jqcloud-rails'
 gem 'mysql2'
-gem 'activerecord-mysql2-adapter'
+#gem 'activerecord-mysql2-adapter'
 gem 'therubyracer', :platforms => :ruby
 #gem 'execjs' #on Win8 use the following:
 gem 'execjs', :git => 'git://github.com/kennyj/execjs.git', :branch => 'rails_issue_2880' #Windows 8
