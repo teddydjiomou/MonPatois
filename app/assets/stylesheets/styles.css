@@ -9,8 +9,6 @@ body {
     
 }
 
-
-
 #lean_overlay {
     position: fixed;
     
@@ -110,6 +108,8 @@ a.btn_red {color: #FFF;}
 .user_register .checkbox {margin-bottom: 10px; clear: both; overflow: hidden;}
 
 
+
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -158,7 +158,6 @@ a.btn_red {color: #FFF;}
 .dropdown a:hover {
     background: #C12B05;
     color: #FFF;
-} block;
 }
 
 .wrap {

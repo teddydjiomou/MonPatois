@@ -144,7 +144,7 @@ GEM
       json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
-    sass (3.4.13)
+    sass (3.1.21)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -196,7 +196,11 @@ DEPENDENCIES
   rails_12factor
   railties (= 3.2.13)
   rb-readline
-  sass-rails (~> 3.2.3)
+  sass
+  sass-rails (~> 3.2.5)
   therubyracer
   thin
   uglifier (>= 1.0.3)
+
+BUNDLED WITH
+   1.10.3
