@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150524151131) do
+ActiveRecord::Schema.define(:version => 20150615005734) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(:version => 20150524151131) do
 
   create_table "comments", :force => true do |t|
     t.text     "text"
+    t.integer  "user_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.integer  "user_id"
     t.integer  "expression_id"
     t.integer  "translation_id"
     t.integer  "discussion_id"
@@ -61,8 +61,9 @@ ActiveRecord::Schema.define(:version => 20150524151131) do
 
   create_table "translations", :force => true do |t|
     t.string   "trans"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "expression_id"
     t.integer  "word_id"
     t.integer  "user_id"
     t.integer  "language_id"
