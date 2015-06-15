@@ -3,8 +3,8 @@
 #import MySQLdb
 import mysql.connector
 
-fo = open("C:\Users\Teddy\Documents\code_patois\zoo.txt", "r")
-cnx = mysql.connector.connect(user='root', password='judith', database='monpatois', host='localhost', port='3306')
+fo = open("G:\MonPatois\code_patois\zoo.txt", "r")
+cnx = mysql.connector.connect(user='b088ad2f200327', password='9687b30d', database='heroku_68c4b8be3729a2c', host='eu-cdbr-west-01.cleardb.com')
 
 
 # Open database connection
@@ -14,12 +14,12 @@ cnx = mysql.connector.connect(user='root', password='judith', database='monpatoi
 cursor = cnx.cursor()
 
 for line in fo.read().splitlines():
-	#print line
+	print line
 	# Prepare SQL query to INSERT a record into the database.
 	sql = ('INSERT INTO words (french, created_at, updated_at)'
 	         ' VALUES ("'+line+'", "2015-05-21 20:00:00", "2015-05-21 20:00:01")')
 	try:
-	    Execute the SQL command
+	    #Execute the SQL command
 		cursor.execute(sql)
 	   # Commit your changes in the database
 		cnx.commit()
