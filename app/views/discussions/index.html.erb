@@ -8,14 +8,14 @@
 	    <tr valign="top" style="border-bottom: 1px solid #ED6347;">
 	    	<td width="90%"> 
 	    		<br />
-	    		<h3 class="discussions_link"><%= link_to discu.title, '#discussions', :onclick => "show_hide_comments('discu"+discu.id.to_s+"')" %></h3> <%= t(:proposed_by) + " " + discu.user.name + ", " + discu.comments.count.to_s + " " + t(:answers) %>
+	    		<h3 class="discussions_link"><%= link_to discu.title, '#discussions', :onclick => "show_hide_comments('discu"+discu.id.to_s+"')" %></h3> <%= t(:proposed_by) + " " + discu.user.surname + ", " + discu.comments.count.to_s + " " + t(:answers) %>
 	    		<div id=<%= 'discu'+discu.id.to_s %> style="display: none;">	
 								<table style="width: 100%;">				
 									<% discu.comments.each do |comment| %>	
 										<tr valign="top" style="border-bottom: 1px solid #ED6347;">	
 											<th width="20%" align="right">		
 												<br />							
-												<%= comment.user.name + ':'%>
+												<%= comment.user.surname + ':'%>
 											</th>
 											<td width="70%">									
 												<p><%= comment.text %></p>

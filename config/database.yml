@@ -1,14 +1,14 @@
 development:
-  host: eu-cdbr-west-01.cleardb.com
-  adapter: mysql2
-  database: heroku_68c4b8be3729a2c
-  username: b088ad2f200327
-  password: 9687b30d
-#  host: localhost
+#  host: eu-cdbr-west-01.cleardb.com
 #  adapter: mysql2
-#  database: monpatois
-#  username: root  
-#  password: judith
+#  database: heroku_68c4b8be3729a2c
+#  username: b088ad2f200327
+#  password: 9687b30d
+  host: localhost
+  adapter: mysql2
+  database: monpatois
+  username: root  
+  password: judith
   
 
 test:

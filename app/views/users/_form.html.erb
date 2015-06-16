@@ -14,36 +14,62 @@
   
 <% if @type == 'profile_info' %>
 	<%= form_for(@user) do |f| %>
-	  <div class="field">
-	    <%= f.label :name, t(:full_name)%><br />
-	    <%= f.text_field :name %>
-	  </div>
-	  <div class="field">
-	    <%= f.label :mail, t(:email_address)%><br />
-	    <%= f.text_field :mail %>
-	  </div>
+		<% if current_user.hashed_password? %>
+		  <div class="default_fields">
+		    <%= f.label :name, t(:full_name)%>
+		    <%= f.text_field :name %>
+		  </div>
+		  <br />
+		  <div class="default_fields">
+		    <%= f.label :username, t(:username)%>
+		    <%= f.text_field :username %>
+		  </div>
+		  <br />
+		  <div class="default_fields">
+		    <%= f.label :mail, t(:email_address)%>
+		    <%= f.text_field :mail %>
+		  </div>
+		  <br />
+		<% else %>
+			<div class="default_fields" style="display: none;>
+			    <%= f.label :name, t(:full_name)%>
+			    <%= f.text_field :name, :value => current_user.name %>
+			</div>
+			<div class="default_fields">
+			    <%= f.label :username, t(:username)%>
+			    <%= f.text_field :username %>
+			</div>
+			<br />
+			<div class="default_fields" style="display: none;>
+			    <%= f.label :mail, t(:email_address)%>
+			    <%= f.text_field :mail, :value => current_user.mail %>
+			</div>
+		<% end %>
 	  <div class="actions">
-	    <%= f.submit t(:OK)%>
+	    <%= f.submit t(:OK), :class=>"default_button"%>
 	  </div>
   	<% end %>
 <% end %>
   
 <% if @type == 'password' %>
 	<%= form_for(@user, :url => {:action => "update_password"}) do |f| %>
-  	  <div class="field">
-	    <%= f.label :old_password, t(:old_password) %><br />
+  	  <div class="default_fields">
+	    <%= f.label :old_password, t(:old_password) %>
 	    <%= f.password_field :old_password %>
 	  </div>
-  	  <div class="field">
-	    <%= f.label :new_password, t(:new_password) %><br />
+	  <br />
+  	  <div class="default_fields">
+	    <%= f.label :new_password, t(:new_password) %>
 	    <%= f.password_field :new_password %>
 	  </div>
-	  <div class="field">
-	    <%= f.label :password_confirmation, t(:password_confirmation) %><br />
+	  <br />
+	  <div class="default_fields">
+	    <%= f.label :password_confirmation, t(:password_confirmation) %>
 	    <%= f.password_field :password_confirmation %>
 	  </div>
+	  <br />
 	  <div class="actions">
-	    <%= f.submit t(:OK)%>
+	    <%= f.submit t(:OK), :class=>"default_button"%>
 	  </div>
   <% end %>
 <% end %>

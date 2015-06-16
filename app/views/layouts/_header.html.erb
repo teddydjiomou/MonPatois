@@ -1,4 +1,5 @@
 <div id="banner">
+	<link rel="shortcut icon" href="/images/logo.jpg"/>
 	<br />
 	<img src="/images/banner_image.jpg" />
 	<!--h1 align="center" style="font-size: 25px;"> Ne laisse pas s'éclipser ton dialecte...</h1-->
@@ -89,6 +90,10 @@
 								<label><%= t(:full_name)%></label>
 								<input type="text" id="name"/>
 								<br />
+								
+								<label><%= t(:username)%></label>
+								<input type="text" id="username"/>
+								<br />
 			
 								<label><%= t(:email_address)%></label>
 								<input type="email" id="regmail"/>
@@ -126,7 +131,7 @@
 		
 		    <!-- dropdown menu -->
 		    <ul class="dropdown-menu">
-		        <li><%= link_to t(:change_profile), edit_user_path(current_user.id, :type=>'profile_info'), :rel=>"facebox" if can? :read, current_user and current_user.hashed_password? %></li>
+		        <li><%= link_to t(:change_profile), edit_user_path(current_user.id, :type=>'profile_info'), :rel=>"facebox" if can? :read, current_user %></li>
 		        <li><%= link_to t(:change_password), edit_user_path(current_user.id, :type=>'password'), :rel=>"facebox" if current_user.hashed_password? %></li>
 		        <li><%= link_to t(:logout), logout_path %></li>
 		    </ul>
@@ -176,6 +181,7 @@ $( "#reset_button" ).click(function() {
 $( "#register_button" ).click(function() {
 	var email = $('#regmail').val();
 	var name = $('#name').val();
+	var username = $('#username').val();
 	var register_url = $('#register_button').attr('register_url');
 	var password = $('#regpassword').val();
 	var password_confirm = $('#password_confirm').val();
@@ -185,6 +191,7 @@ $( "#register_button" ).click(function() {
 		        	data: { 'user' : { 'password': password,
 		        						'password_confirmation': password_confirm,
 		        						'name': name,
+		        						'username': username,
 		        						'mail': email}
 		        			},
 		        	dataType: 'html',

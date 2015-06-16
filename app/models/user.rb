@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
   validates :name, :mail, :presence => true
   validates_uniqueness_of :mail
   
+  def surname
+    return (self.username || self.name)
+  end
+  
   def self.try_to_login(mail, password)
     hashed_password = Digest::SHA1.hexdigest(password || "")
     User.where(:mail=>mail, :hashed_password=>hashed_password).first
@@ -42,8 +46,17 @@ class User < ActiveRecord::Base
   
   def level
     score = self.votations.count + self.languages.count*2 + self.translations.count*4 + self.expressions.count*8 + self.feedback
-    
-    return score
+    if score < 200
+      return I18n.t(:villager)
+    elsif score < 500
+      return I18n.t(:householder)
+    elsif score < 900
+      return I18n.t(:notable)
+    elsif score < 1400
+      return I18n.t(:head_of_village)
+    else return I18n.t(:linguist)
+      
+    end 
     
   end
   
