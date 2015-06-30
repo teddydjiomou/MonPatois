@@ -8,6 +8,7 @@ class Language < ActiveRecord::Base
   
   validates_presence_of :name, {message: I18n.t(:name_is_required)}
   validates_presence_of :origin, {message: I18n.t(:origin_is_required)}
+  validates_uniqueness_of :name
   
   def verify?
     if self.verify == 'true'
