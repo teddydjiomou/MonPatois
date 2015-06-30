@@ -270,7 +270,7 @@ tr.scroll_table td{
 
 .wrap_down {
 	position: absolute;
-    top: 920px;
+    top: 1000px;
     left: 5%;
     width: 90%;
     height: auto;
@@ -284,8 +284,8 @@ tr.scroll_table td{
 .language_tag_cloud {
 	position: absolute;
     top: 700px;
-    left: 25%;
-    width: 50%;
+    left: 10%;
+    width: 80%;
     height: auto;
     /*background-image: url('/images/scroll_back_image.jpg');
     background-size: cover;*/

@@ -1,1 +1,0 @@
-curl -A "Mozilla/5.0" 'http://translate.google.it/translate_a/t?client=t&text=dormire&hl=it&sl=it&tl=en&ie=UTF-8&oe=UTF-8&multires=1&prev=btn&ssel=0&tsel=0&sc=1'
