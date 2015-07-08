@@ -53,11 +53,9 @@ class UsersController < ApplicationController
   
       respond_to do |format|
         if @user.save
-          #format.html { redirect_to root_url, notice: t(:congratulations_can_now_log_in) }
-          #format.html { redirect_to "/create_session", :mail => mail, :password => password, notice: 'User was successfully created.' }
+          UserMailer.welcome_email(@user).deliver
           format.json { render json: t(:congratulations_can_now_log_in) } #@user, status: :created, location: @user }
         else
-          #format.html { redirect_to root_url, notice: t(:error_while_registering) }
           format.json { render json: t(:error_while_registering) } #@user.errors, status: :unprocessable_entity }
         end
       end
@@ -75,6 +73,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        UserMailer.reset_credentials_email(@user).deliver
         format.html { redirect_to :back, :layout => false, notice: t(:modification_registered)}
         format.json {render inline: "location.reload();" }#{ head :no_content }
       else
@@ -105,7 +104,8 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if new_password == confirm_password and @user.hashed_password == Digest::SHA1.hexdigest(old_password) and @user.update_attributes(:hashed_password=>Digest::SHA1.hexdigest(new_password))#set_password(old_password, new_password, confirm_password)
-        format.html { redirect_to :back, :layout => false, notice: t(:modification_registered)}
+        UserMailer.reset_credentials_email(@user).deliver
+        format.html { redirect_to :back, notice: t(:modification_registered)}
         format.json { head :no_content }
       else
         format.html { redirect_to :back, alert: @user.errors.full_messages}
@@ -118,18 +118,20 @@ class UsersController < ApplicationController
     user = params[:id].nil? ? User.where(:mail=>params[:mail]).first : User.find(params[:id])   
         
     respond_to do |format|     
-        if user    
-          if user.reset_password() and user.save!
-            #Usermailer.reset_password_email(user).deliver         
-            format.html { redirect_to :back, notice: t(:password_sent) }      
-            format.json { head :no_content }
+        if user   
+          new_password = user.reset_password() 
+          if new_password and user.save
+            UserMailer.reset_password_email(user, new_password).deliver     
+            format.json { render json: t(:check_email) }
+            #format.html { redirect_to :back, notice: t(:password_sent) }      
+            #format.json { head :no_content }
           else
-            format.html { redirect_to :back, notice: t(:generic_error) }
-            format.json { render json: @user.errors, status: :unprocessable_entity }
+            #format.html { redirect_to :back, notice: t(:generic_error) }
+            format.json { render json: t(:reset_mail_generic_error) }
           end   
         else     
-          format.html { redirect_to :back, notice: t(:user_not_exists) }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+          #format.html { redirect_to :back, notice: t(:user_not_exists) }
+          format.json { render json: t(:user_not_exists) }
         end
     end
            

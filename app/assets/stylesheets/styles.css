@@ -107,9 +107,6 @@ a.btn_red {color: #FFF;}
 
 .user_register .checkbox {margin-bottom: 10px; clear: both; overflow: hidden;}
 
-
-
-
 .dropdown {
     position: relative;
     display: inline-block;
@@ -454,7 +451,7 @@ list-style-type: none;
     height: 150px;
     position: absolute;
 	border-radius: 15px;
-	
+	bottom: 0;
     /*background-size: contain;
     background-image: url('/images/banner_background.jpg'); /*background-repeat: repeat;*/   
     /*border-width: 0px;

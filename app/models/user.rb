@@ -48,11 +48,11 @@ class User < ActiveRecord::Base
     score = self.votations.count + self.languages.count*2 + self.translations.count*4 + self.expressions.count*8 + self.feedback
     if score < 200
       return I18n.t(:villager)
-    elsif score < 500
+    elsif score < 400
       return I18n.t(:householder)
-    elsif score < 900
+    elsif score < 700
       return I18n.t(:notable)
-    elsif score < 1400
+    elsif score < 1100
       return I18n.t(:head_of_village)
     else return I18n.t(:linguist)
       
@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
       self.password = Array.new(8){[*'0'..'9', *'a'..'z', *'A'..'Z'].sample}.join
       self.hashed_password = Digest::SHA1.hexdigest(self.password || "")
     end while User.where(:hashed_password=>self.hashed_password).exists?
-    return true
+    return self.password
   end
   
   #def num_votes

@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require "action_mailer/railtie"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -56,5 +57,19 @@ module MonPatois
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    config.action_mailer.delivery_method = :smtp  
+    config.action_mailer.perform_deliveries = true
+    
+    config.action_mailer.smtp_settings = {
+     :address => 'smtp.gmail.com',
+     :port => 587,
+     :authentication => 'plain',
+     :user_name => 'info.monpatois@gmail.com',
+     :password => 'judith_monpatois',
+     :enable_starttls_auto => true,
+     :domain => 'gmail.com'
+    }   
+    
   end
 end

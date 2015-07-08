@@ -58,6 +58,7 @@ class LanguagesController < ApplicationController
 
     respond_to do |format|
       if @language.save
+        UserMailer.language_created_email(@language).deliver
         format.html { redirect_to :back, notice: t(:thanks_for_your_contribution_wait_verifying) }
         format.json { render json: @language, status: :created, location: @language }
       else
@@ -90,7 +91,7 @@ class LanguagesController < ApplicationController
     @language.destroy
 
     respond_to do |format|
-      format.html { redirect_to :back, notice: t(:language_deleted) }
+      format.html { redirect_to root_url, notice: t(:language_deleted) }
       format.json { head :no_content }
     end
   end

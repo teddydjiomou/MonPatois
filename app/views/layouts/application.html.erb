@@ -20,137 +20,141 @@
   
 </head>
 <body >
-	<%= render(:partial => "layouts/header") %>
-	<div id="messages">
-		<p id="notice" style="background-color: #FFF;"><%= notice %></p>
-		<% unless alert.nil? %>
-		<p id="alert" style="color: red; background-color: #FFF;"> Erreurs:  <%= alert %></p>
-		<% end %>
-	</div>
-
-	
-	<div class="scroll">
-		<marquee direction="up" scrollamount="4" height="100%">
-			<table class="scroll_table">
-				<% Expression.all.shuffle.each do |e| %>				
-						<tr style="border-bottom: solid 1px;">
-							<td style="font-size: 18px;">
-							<% if e.french? %>
-								<%= 'Francais:"'+e.french+'"' %>
-							<% end %>
-							</td>						
-							<td style="font-size: 18px; ">
-							<%= e.language.name + ': ' + e.trans %>
-							</td>	
-							<td >
-							<% if e.english? %>
-								<%= 'English:"'+e.english+'"' %> <br />
-							<% end %>					
-							</td>			
-						</tr>					
-				<%end%>
-			</table>
-		</marquee>		
-	</div>
-	
-	<% if current_user %>
-	<div class="board">	
-		<table class="board_table">
-			<th><%= t(:wall) %></th>
-			<tr>
-				<th align="left">
-					<%= t(:languages_created) %>:
-				</th>
-				<td align="right">
-					<%= current_user.languages.count %>
-				</td>
-			</tr>
-			<tr>
-				<th align="left">
-					<%= t(:words_translated) %>:  
-				</th>
-				<td align="right">
-					<%= current_user.translations.count %>
-				</td>
-			</tr>
-			<tr>
-				<th align="left">
-					<%= t(:expressions_created) %>:  
-				</th>
-				<td align="right">
-					<%= current_user.expressions.count %>
-				</td>
-			</tr>
-			<tr>
-				<th align="left">
-					<%= t(:votations_given) %>:  
-				</th>
-				<td align="right">
-					<%= current_user.votations.count %>
-				</td>
-			</tr>
-			<tr>
-				<th align="left">
-					<%= t(:votations_received) %>:  
-				</th>
-				<td align="right">
-					<%= current_user.votations_received %>
-				</td>
-			</tr>
-			<tr>
-				<th align="left">
-					<%= t(:feedback) %>:  
-				</th>
-				<td align="right">
-					<%= current_user.feedback %>
-				</td>
-			</tr>
-			<tr>
-				<th align="left">
-					<%= t(:level) %>:  
-				</th>
-				<td align="right">
-					<%= current_user.level %>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<% end %>
-
-	<div id="slide">
-		<div id="sliderFrame">
-	        <div id="slider">
-	            <img src="/images/slide1.jpg"/>
-	            <img src="/images/slide2.jpg"/>
-	            <img src="/images/slide3.jpg"/>
-	            <img src="/images/slide4.jpg"/>
-	            <img src="/images/slide5.jpg"/>
-	            <img src="/images/slide6.jpg"/>
-	            <img src="/images/slide7.jpg"/>
-	        </div>
-	    </div>
-    </div>
-
-	<div class="language_tag_cloud">	
-		<div id="whatever">
-			<br />
-			<% Language.all.shuffle.each do |l| %>
-				&nbsp;
-				<% if l.verify? or (current_user and current_user.is_admin?)%>
-					<a href=<%= language_path(l) %> rel=<%= rand(1..10).to_s %>><%= l.name %></a>
-				<% end %>
-			<%end%>
+	<div>
+		<%= render(:partial => "layouts/header") %>
+		<div id="messages">
+			<p id="notice" style="background-color: #FFF;"><%= notice %></p>
+			<% unless alert.nil? %>
+			<p id="alert" style="color: red; background-color: #FFF;"> Erreurs:  <%= alert %></p>
+			<% end %>
 		</div>
-		<br />
-		<br />
-		&nbsp;
-		<%= link_to t(:New_language), new_language_path(), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
-		<br />
-		<br />			
-	</div>			
 	
-	<div  id="lexiquefocus" class="wrap_down">
-		<%= yield %>
+		
+		<div class="scroll">
+			<marquee direction="up" scrollamount="4" height="100%">
+				<table class="scroll_table">
+					<% Expression.all.shuffle.each do |e| %>				
+							<tr style="border-bottom: solid 1px;">
+								<td style="font-size: 18px;">
+								<% if e.french? %>
+									<%= 'Francais:"'+e.french+'"' %>
+								<% end %>
+								</td>						
+								<td style="font-size: 18px; ">
+								<%= e.language.name + ': ' + e.trans %>
+								</td>	
+								<td >
+								<% if e.english? %>
+									<%= 'English:"'+e.english+'"' %> <br />
+								<% end %>					
+								</td>			
+							</tr>					
+					<%end%>
+				</table>
+			</marquee>		
+		</div>
+		
+		<% if current_user %>
+		<div class="board">	
+			<table class="board_table">
+				<th><%= t(:wall) %></th>
+				<tr>
+					<th align="left">
+						<%= t(:languages_created) %>:
+					</th>
+					<td align="right">
+						<%= current_user.languages.count %>
+					</td>
+				</tr>
+				<tr>
+					<th align="left">
+						<%= t(:words_translated) %>:  
+					</th>
+					<td align="right">
+						<%= current_user.translations.count %>
+					</td>
+				</tr>
+				<tr>
+					<th align="left">
+						<%= t(:expressions_created) %>:  
+					</th>
+					<td align="right">
+						<%= current_user.expressions.count %>
+					</td>
+				</tr>
+				<tr>
+					<th align="left">
+						<%= t(:votations_given) %>:  
+					</th>
+					<td align="right">
+						<%= current_user.votations.count %>
+					</td>
+				</tr>
+				<tr>
+					<th align="left">
+						<%= t(:votations_received) %>:  
+					</th>
+					<td align="right">
+						<%= current_user.votations_received %>
+					</td>
+				</tr>
+				<tr>
+					<th align="left">
+						<%= t(:feedback) %>:  
+					</th>
+					<td align="right">
+						<%= current_user.feedback %>
+					</td>
+				</tr>
+				<tr>
+					<th align="left">
+						<%= t(:level) %>:  
+					</th>
+					<td align="right">
+						<%= current_user.level %>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<% end %>
+	
+		<div id="slide">
+			<div id="sliderFrame">
+		        <div id="slider">
+		            <img src="/images/slide1.jpg"/>
+		            <img src="/images/slide2.jpg"/>
+		            <img src="/images/slide3.jpg"/>
+		            <img src="/images/slide4.jpg"/>
+		            <img src="/images/slide5.jpg"/>
+		            <img src="/images/slide6.jpg"/>
+		            <img src="/images/slide7.jpg"/>
+		        </div>
+		    </div>
+	    </div>
+	
+		<div class="language_tag_cloud">	
+			<div id="whatever">
+				<br />
+				<% Language.all.shuffle.each do |l| %>
+					&nbsp;
+					<% if l.verify? or (current_user and current_user.is_admin?)%>
+						<a href=<%= language_path(l) %> rel=<%= rand(1..10).to_s %>><%= l.name %></a>
+					<% end %>
+				<%end%>
+			</div>
+			<br />
+			<br />
+			&nbsp;
+			<%= link_to t(:New_language), new_language_path(), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
+			<br />
+			<br />			
+		</div>			
+		
+		<div  id="lexiquefocus" class="wrap_down">
+			<%= yield %>
+		</div>
+	</div>
+	<div >
 	</div>
 </body>
 </html>
