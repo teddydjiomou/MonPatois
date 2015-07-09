@@ -135,7 +135,7 @@
 		<div class="language_tag_cloud">	
 			<div id="whatever">
 				<br />
-				<% Language.all.shuffle.each do |l| %>
+				<% Language.all.sort.each do |l| %>
 					&nbsp;
 					<% if l.verify? or (current_user and current_user.is_admin?)%>
 						<a href=<%= language_path(l) %> rel=<%= rand(1..10).to_s %>><%= l.name %></a>
