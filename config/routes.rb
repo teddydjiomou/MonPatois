@@ -54,6 +54,8 @@ MonPatois::Application.routes.draw do
   match "create_session", :to => "sessions#create_by_mail", via: [:get, :post]
   post 'reset_password', :to => 'users#reset_password'
   get "logout", :to => "sessions#logout"
+  post "contact_us", :to => 'home#contact_us'
+  get "/contact_form", :to => 'home#contact_form'
 
 
   root :to => "home#index"

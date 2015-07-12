@@ -94,9 +94,14 @@ a.btn_red {color: #FFF;}
 /* Reset Password Form */
 .password_reset {display: none;}
 .password_reset label {display: block; margin-bottom:5px;}
-.password_reset input[type="text"], .user_login input[type="email"], .user_login input[type="password"] {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
+.password_reset input[type="text"], .password_reset input[type="email"], .password_reset input[type="password"] {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
 .password_reset input[type="checkbox"] {float:left; margin-right:5px;}
 .password_reset input[type="checkbox"]+label {float:left;}
+
+/* Contact us Form */
+.contact_us {display: none;}
+.contact_us label {display: block; margin-bottom:5px;}
+.contact_us input[type="text"], .contact_us input[type="email"], {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
 
 /* User Register Form */
 .user_register {display: none;}
@@ -480,6 +485,14 @@ list-style-type: none;
     top: 5px;
     z-index: 2;
 } 
+
+.contact {
+    position: absolute;
+    left: 30px;
+    top: 15px;
+    z-index: 2;
+} 
+
 #table
 { width: 580px;
 background-color: #fafafa;

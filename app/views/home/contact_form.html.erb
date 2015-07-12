@@ -1,0 +1,55 @@
+<div class="contact_form">
+  <form>
+  	<header class="popupHeader">
+		<span class="header_title"><%= t(:contact_us)%></span>
+	</header>
+					
+  	<div class="default_fields">
+	<label><%= t(:name)%></label>
+	<input type="string" id="contact_name" size="30"/>
+	</div>
+	<br />							
+	
+	<div class="default_fields">
+	<label><%= t(:email_address)%></label>
+	<input type="email" id="contact_mail" size="30"/>
+	</div>
+	<br />
+	
+	<div class="default_fields">		
+	<label><%= t(:your_message)%></label>
+	<textarea name="message" id="contact_message" cols="50" rows="10"/>
+	</div>
+	<br />							
+			
+	<div class="action_btns">
+		<div class="one_half"><a href="#" id="contact_button" contact_url=<%= root_url+'/contact_us' %> class="btn btn_red"><%= t(:send)%></a></div>
+	</div>
+  </form>
+</div>	
+
+<script type="text/javascript">
+
+$( "#contact_button" ).click(function() {
+	var email = $('#contact_mail').val();
+	var name = $('#contact_name').val();
+	var message = $('#contact_message').val();
+	var contact_url = $('#contact_button').attr('contact_url');
+	jQuery.ajax({ 
+		        	url: contact_url, 
+		        	type: 'POST', 
+		        	data: { 'mail' : email, 'name' : name, 'message' : message},
+		        	dataType: 'html',
+		        	success: function(data) { 
+		        		if (data.split(';')[0] == 'error'){
+		        			alert(data.split(';')[1]);
+		        		}
+		        		else{
+		        			alert(data);
+		        			window.location.reload(true);
+		        		}
+		        		  },
+		        	beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},		    				
+    				});
+});
+</script>

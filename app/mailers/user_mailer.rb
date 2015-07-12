@@ -22,4 +22,17 @@ class UserMailer < ActionMailer::Base
     @language = language        
     mail(:to => 'thierryvianney@yahoo.fr', :subject => t('language_created'))
   end
+  
+  def discussion_created_email(discussion)
+    @discussion = discussion        
+    mail(:to => 'thierryvianney@yahoo.fr', :subject => t('discussion_created'))
+  end
+  
+  def contact_us_email(mail, name, message)
+    @mail = mail
+    @name = name
+    @message = message
+    mail(:to => 'thierryvianney@yahoo.fr', :subject => t('new_message'))
+  end
+  
 end

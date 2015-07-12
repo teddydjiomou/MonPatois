@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Bonjour Teddy,</h1>
+    <p>
+      Un nouveau sujet de discussion a été crée dans la langue <%= @discussion.language.name %>:<br />
+	&nbsp; Titre: <%= @discussion.title %><br />
+	&nbsp; Auteur: <%= @discussion.user.name %><br />
+</p>
+
+    
+  </body>
+</html>

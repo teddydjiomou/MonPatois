@@ -5,6 +5,10 @@
 	<img src="/images/banner_image.jpg" />
 	<!--h1 align="center" style="font-size: 25px;"> Ne laisse pas s'éclipser ton dialecte...</h1-->
 	 
+	<div class="contact">
+		<a id="contact_us_form" href="/contact_form" class="login_button" rel='facebox'> <%= t(:contact_us)%> </a>		
+	</div> 
+	 
 	<div class="logout">
 	    <% if session[:user_id].nil? %>
 		    <div class="container">
@@ -82,7 +86,7 @@
 									<div class="one_half last"><a href="#" id="reset_button" reset_url=<%= root_url+'/reset_password' %> class="btn btn_red"><%= t(:reset)%></a></div>
 								</div>
 							</form>			
-						</div>
+						</div>											
 						
 			
 						<!-- Register Form -->
@@ -217,7 +221,6 @@ $( "#register_button" ).click(function() {
     				});
 });
 
-
 	$("#modal_trigger").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });
 
 	$(function(){
@@ -226,6 +229,7 @@ $( "#register_button" ).click(function() {
 			$(".social_login").hide();
 			$(".password_reset").hide();
 			$(".user_login").show();
+			$(".header_title").text('Login');
 			return false;
 		});
 		
@@ -245,6 +249,7 @@ $( "#register_button" ).click(function() {
 			$(".header_title").text('Register');
 			return false;
 		});
+		
 
 		// Going back to Social Forms
 		$(".back_btn").click(function(){

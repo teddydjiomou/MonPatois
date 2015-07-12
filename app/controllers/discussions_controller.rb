@@ -63,6 +63,7 @@ class DiscussionsController < ApplicationController
 
     respond_to do |format|
       if @discussion.save
+        UserMailer.discussion_created_email(@discussion).deliver
         format.html { redirect_to :back }
         format.json { render json: @discussion, status: :created, location: @discussion }
       else
