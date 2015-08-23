@@ -35,4 +35,12 @@ class UserMailer < ActionMailer::Base
     mail(:to => 'thierryvianney@yahoo.fr', :subject => t('new_message'))
   end
   
+  def invite_friend_email(mail, name, inviter, url)
+    @name = name
+    @inviter = inviter
+    @url = url
+    #@message = message
+    mail(:to => mail, :subject => t('youre_invited'))
+  end
+  
 end

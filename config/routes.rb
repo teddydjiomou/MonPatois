@@ -55,7 +55,10 @@ MonPatois::Application.routes.draw do
   post 'reset_password', :to => 'users#reset_password'
   get "logout", :to => "sessions#logout"
   post "contact_us", :to => 'home#contact_us'
+  post "invite", :to => 'home#invite'
   get "/contact_form", :to => 'home#contact_form'
+  get "/invite_friend_form", :to => 'home#invite_friend_form'
+  
 
 
   root :to => "home#index"

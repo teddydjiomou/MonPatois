@@ -106,3 +106,8 @@ fr:
   please_fill_all_data: "error;Veuillez remplir toutes les informations requises"
   new_message: "MonPatois, nouveau message"
   discussion_created: "Monpatois, un nouveau sujet de discussion a été crée"
+  invite_friend: "invite un(e) ami(e)"
+  friends_name: "Nom de ton ami(e)"
+  his_email_address: "son adresse email"
+  invitation_sent: "Ton invitation a été envoyée."
+  youre_invited: "Tu as été invité sur MonPatois"
