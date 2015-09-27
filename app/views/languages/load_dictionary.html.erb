@@ -30,7 +30,7 @@
   <div style="font-size: 10px;">
   	<% if @num_pages != '1' %>
 	  	<% ('1'..@num_pages).to_a.each do |page| %>
-			<%= link_to page, '#dictionary', :onclick => "load_dictionary('"+@language.name+"', '"+ @letter + "', '"+ page + "')" %> -
+			<%= link_to page, '#dictionary', :onclick => "load_dictionary('"+@language.id.to_s+"', '"+ @letter + "', '"+ page + "')" %> -
 		<%end%>	
 	<% end %>
   </div>

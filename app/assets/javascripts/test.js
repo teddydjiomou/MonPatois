@@ -1,9 +1,9 @@
-function load_dictionary(language_name, letter)
+function load_dictionary(language_id, letter)
     {    	
     	jQuery.ajax({ 
 		        	url: 'load_dictionary', 
 		        	type: 'GET', 
-		        	data: { 'language' : language_name, 
+		        	data: { 'language' : language_id, 
 		        			'letter' : letter },
 		        	dataType: 'html',
 		        	success: function(data) { $('#dictionary').html(data); },
@@ -13,12 +13,12 @@ function load_dictionary(language_name, letter)
     	//alert('JQuery OK!');
   };
    
-function load_expressions(language_name)
+function load_expressions(language_id)
     {    	    	
     	jQuery.ajax({ 
 		        	url: 'load_expressions', 
 		        	type: 'GET', 
-		        	data: { 'language' : language_name, },
+		        	data: { 'language' : language_id, },
 		        	dataType: 'html',
 		        	success: function(data) { $('#expressions').html(data); },
 		        	beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},		    				

@@ -100,7 +100,7 @@ class LanguagesController < ApplicationController
     num = 100
     @page = params[:page] || '1'
     @letter = params[:letter]
-    @language = Language.where('name = ?', params[:language]).first
+    @language = Language.find(params[:language])  #Language.where('name = ?', params[:language]).first
     all_words = Word.all :conditions => ['substr(french,1,1) = ?', params[:letter]]
     all_words = all_words.sort_by!{ |m| m.french.downcase }
     @words = all_words[(@page.to_i-1)*num..(@page.to_i*num-1)]
@@ -118,7 +118,7 @@ class LanguagesController < ApplicationController
   def load_expressions
     num = 100
     @page = params[:page] || '1'
-    @language = Language.where('name = ?', params[:language]).first
+    @language = Language.find(params[:language]) #Language.where('name = ?', params[:language]).first
     all_expressions = @language.expressions
     @expressions = all_expressions[(@page.to_i-1)*num..(@page.to_i*num-1)]
     @num_pages = (all_expressions.count/num+1).ceil.to_s
