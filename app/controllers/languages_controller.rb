@@ -102,6 +102,7 @@ class LanguagesController < ApplicationController
     @letter = params[:letter]
     @language = Language.where('name = ?', params[:language]).first
     all_words = Word.all :conditions => ['substr(french,1,1) = ?', params[:letter]]
+    all_words = all_words.sort_by!{ |m| m.french.downcase }
     @words = all_words[(@page.to_i-1)*num..(@page.to_i*num-1)]
     @num_pages = (all_words.count/num+1).ceil.to_s
     if all_words.count%num

@@ -3,7 +3,7 @@
     <% @words.each do |word| %>
     	<tr style="border-bottom: 1px solid #ED6347;">
 		    <td> 
-		    	<% if word.translations.count < 3 and current_user %>
+		    	<% if word.get_dictionary(@language).count < 3 and current_user %>
 				<%= link_to word.french, new_translation_path(:word => word, :language => @language), :rel => 'facebox', :title=>t(:translate) if word.french? %>
 				<% else %>
 				<%= word.french if word.french? %>
@@ -12,7 +12,7 @@
 			<td> 
 				<%= word.english if word.english? %>
 			</td>
-				<% word.translations.where('language_id = ?', @language).each do |trans| %>
+				<% word.get_dictionary(@language).each do |trans| %>
 					<td>
 						<%= trans.trans %>
 						<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'positive')", :title=>t(:vote_plus) %>

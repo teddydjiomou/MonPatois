@@ -7,7 +7,8 @@ class Translation < ActiveRecord::Base
   belongs_to :user, :inverse_of => :translations
   
   validates_presence_of :trans
-  validates_uniqueness_of :trans
+  #validates_uniqueness_of :trans
+  validate :unique_word_language
   
   def score
     pos_votes = 0
@@ -21,5 +22,11 @@ class Translation < ActiveRecord::Base
       end
     end
     return pos_votes - neg_votes
+  end
+  
+  def unique_word_language
+    if Translation.where(word_id: self.word_id, language_id: self.language_id).exists?
+      errors.add(:unique_word_language, I18n.t(:translation_already_inserted))
+    end
   end
 end

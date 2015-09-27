@@ -1,17 +1,24 @@
 <br />
-<table class="lexique">   
+<table class="lexique" style="width: 100%;">   
     <% @expressions.each do |exp| %>
     <tr valign="top" style="border-bottom: 1px solid #ED6347;">
-    	<td width="20%"> <p><%= '"'+exp.french+'"' if exp.french? %></p> </td>
-		<td> <p><%= '"'+exp.english+'"' if exp.english? %></p> </td>
-		<td width="20%"> <p><%= '"'+exp.trans+'"' %> </p></td>
-		<td valign="top" width="10%">
-			<br />
-			<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('', '"+exp.id.to_s+"', 'positive')", :title=>t(:vote_plus) %>
-			<%='(' + exp.score.to_s + ')' %>
-			<%= link_to image_tag('/images/mine_button.png'), '#', :onclick => "vote('', '"+exp.id.to_s+"', 'negative')", :title=>t(:vote_mine) %>
-		</td>
-		<td width="50%">	
+    	<td width="40%">
+    		<table>
+    			<tr><td><p><%= '"'+exp.french+'"' if exp.french? %></p></td></tr>
+	    		<tr><td><p><%= '"'+exp.english+'"' if exp.english? %></p></td></tr>
+	    		<tr><td><p><%= '"'+exp.trans+'"' %></p></td></tr>
+	    		<tr>
+	    			<td>
+						<br />
+						<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('', '"+exp.id.to_s+"', 'positive')", :title=>t(:vote_plus) %>
+						<%='(' + exp.score.to_s + ')' %>
+						<%= link_to image_tag('/images/mine_button.png'), '#', :onclick => "vote('', '"+exp.id.to_s+"', 'negative')", :title=>t(:vote_mine) %>
+					</td>
+	    		</tr>
+    		</table>    		
+    	</td>
+    	
+		<td width="60%">	
 			<p>			
 				<%  %> 										
 					<%= link_to image_tag('/images/comment_button.png'), new_comment_path(:expression => exp), :rel => 'facebox', :title=>t(:comment) if current_user %>
@@ -27,11 +34,11 @@
 							<table class="lexique_comments">				
 								<% exp.comments.each do |comment| %>	
 									<tr valign="top" style="border-bottom: 1px solid #ED6347;">	
-										<th width="30%" align="right">		
+										<th width="20%" align="right">		
 											<br />							
 											<%= comment.user.surname + ':'%>
 										</th>
-										<td width="50%">									
+										<td width="60%">									
 											<p><%= comment.text %></p>
 										</td>
 										<td width="20%">

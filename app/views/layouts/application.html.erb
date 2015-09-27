@@ -20,7 +20,6 @@
   
 </head>
 <body >
-	<div>
 		<%= render(:partial => "layouts/header") %>
 		<div id="messages">
 			<p id="notice" style="background-color: #FFF;"><%= notice %></p>
@@ -33,25 +32,61 @@
 		<div class="scroll">
 			<marquee direction="up" scrollamount="4" height="100%">
 				<table class="scroll_table">
-					<% Expression.all.shuffle.each do |e| %>				
-							<tr style="border-bottom: solid 1px;">
-								<td style="font-size: 18px;">
-								<% if e.french? %>
-									<%= 'Francais:"'+e.french+'"' %>
-								<% end %>
-								</td>						
-								<td style="font-size: 18px; ">
-								<%= e.language.name + ': ' + e.trans %>
-								</td>	
-								<td >
-								<% if e.english? %>
-									<%= 'English:"'+e.english+'"' %> <br />
-								<% end %>					
-								</td>			
-							</tr>					
+					<% Expression.all.shuffle.each do |e| %>	
+						<% if e.french? %>
+							<tr><td style="font-size: 14px;"><%= 'Francais:"'+e.french+'"' %></td></tr>	
+							<tr><td style="font-size: 18px;"><%= e.language.name + ': "' + e.trans+'"' %></td></tr>						
+						<% end %>
+						<% if e.english? %>
+							<tr><td style="font-size: 14px;"><%= 'English:"'+e.english+'"' %></td></tr>	
+							<tr><td style="font-size: 18px;"><%= e.language.name + ': "' + e.trans+'"' %></td></tr>	
+							 <br />
+						<% end %>						
+						<tr><td></td></tr>
+						<tr><td></td></tr>
+						<tr><td></td></tr>
+										
 					<%end%>
 				</table>
 			</marquee>		
+		</div>
+		
+		
+	
+		<div id="slide">
+			<div id="sliderFrame">
+		        <div id="slider">
+		            <img src="/images/slide1.jpg"/>
+		            <img src="/images/slide2.jpg"/>
+		            <img src="/images/slide3.jpg"/>
+		            <img src="/images/slide4.jpg"/>
+		            <img src="/images/slide5.jpg"/>
+		            <img src="/images/slide6.jpg"/>
+		            <img src="/images/slide7.jpg"/>
+		        </div>
+		    </div>
+	    </div>
+	
+		<div class="language_tag_cloud">	
+			<div id="whatever">
+				<br />
+				<% Language.all.sort_by!{ |m| m.name.downcase }.each do |l| %>
+					&nbsp;
+					<% if l.verify? or (current_user and current_user.is_admin?)%>
+						<a href=<%= language_path(l) %> rel=<%= rand(1..10).to_s %>><%= l.name %></a>
+					<% end %>
+				<%end%>
+			</div>
+			<br />
+			<br />
+			&nbsp;
+			<%= link_to t(:New_language), new_language_path(), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
+			<br />
+			<br />			
+		</div>			
+		
+		<div  id="lexiquefocus" class="wrap_down">
+			<%= yield %>
 		</div>
 		
 		<% if current_user %>
@@ -117,45 +152,7 @@
 			</table>
 		</div>
 		<% end %>
-	
-		<div id="slide">
-			<div id="sliderFrame">
-		        <div id="slider">
-		            <img src="/images/slide1.jpg"/>
-		            <img src="/images/slide2.jpg"/>
-		            <img src="/images/slide3.jpg"/>
-		            <img src="/images/slide4.jpg"/>
-		            <img src="/images/slide5.jpg"/>
-		            <img src="/images/slide6.jpg"/>
-		            <img src="/images/slide7.jpg"/>
-		        </div>
-		    </div>
-	    </div>
-	
-		<div class="language_tag_cloud">	
-			<div id="whatever">
-				<br />
-				<% Language.all.sort.each do |l| %>
-					&nbsp;
-					<% if l.verify? or (current_user and current_user.is_admin?)%>
-						<a href=<%= language_path(l) %> rel=<%= rand(1..10).to_s %>><%= l.name %></a>
-					<% end %>
-				<%end%>
-			</div>
-			<br />
-			<br />
-			&nbsp;
-			<%= link_to t(:New_language), new_language_path(), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
-			<br />
-			<br />			
-		</div>			
 		
-		<div  id="lexiquefocus" class="wrap_down">
-			<%= yield %>
-		</div>
-	</div>
-	<div >
-	</div>
 </body>
 </html>
 

@@ -20,5 +20,5 @@ class Word < ActiveRecord::Base
     end
     return dictionary    
   end
-  
+    
 end

@@ -26,7 +26,7 @@ class Expression < ActiveRecord::Base
   
   def english_or_french
     if self.french.nil? and self.english.nil?
-      errors.add(:englih_or_french, t(:insert_englih_or_french))
+      errors.add(:englih_or_french, I18n.t(:insert_englih_or_french))
     end
   end
   
