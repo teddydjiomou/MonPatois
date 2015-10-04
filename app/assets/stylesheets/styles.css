@@ -468,8 +468,8 @@ list-style-type: none;
 
 #messages{
 	position: absolute;
-	top: 305px;
-	width: 15%;
+	top: 1000px;
+	width: auto;
 	height: auto;
 }
 

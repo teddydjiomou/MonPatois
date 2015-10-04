@@ -13,12 +13,12 @@
 				<%= word.english if word.english? %>
 			</td>
 				<% word.get_dictionary(@language).each do |trans| %>
-					<td>
+					<td>						
 						<%= trans.trans %>
 						<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'positive')", :title=>t(:vote_plus) %>
 						<%= '(' + trans.score.to_s + ')' %>
 						<%= link_to image_tag('/images/mine_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'negative')", :title=>t(:vote_mine) %>
-						
+						|
 					</td>
 				<%end%>
 

@@ -25,7 +25,7 @@ class Translation < ActiveRecord::Base
   end
   
   def unique_word_language
-    if Translation.where(word_id: self.word_id, language_id: self.language_id).exists?
+    if Translation.where(word_id: self.word_id, language_id: self.language_id, trans: self.trans).exists?
       errors.add(:unique_word_language, I18n.t(:translation_already_inserted))
     end
   end
