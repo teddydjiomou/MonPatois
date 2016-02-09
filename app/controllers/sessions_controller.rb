@@ -15,10 +15,10 @@ class SessionsController < ApplicationController
     else
       unless auth_hash["provider"] == "twitter"
         unless (user = User.find_by_mail(auth_hash["info"]["email"]))
-          user = User.new :name => auth_hash["info"]["name"], :mail => auth_hash["info"]["email"]
+          user = User.new :name => auth_hash["info"]["name"], :mail => auth_hash["info"]["email"], :image => auth_hash["info"]["image"]
         end
       else
-        user = User.new :name => auth_hash["info"]["name"], :mail => auth_hash["info"]["name"].gsub(/\s+/, "")+'@'+auth_hash["info"]["nickname"]+'.com'
+        user = User.new :name => auth_hash["info"]["name"], :image => auth_hash["info"]["image"], :mail => auth_hash["info"]["name"].gsub(/\s+/, "")+'@'+auth_hash["info"]["nickname"]+'.com'
       end
       user.authorizations.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
       #user.save

@@ -1,28 +1,57 @@
-<div align="center">
-	<h2 class="language_title"><%= language.name %></h2>
-	<table class="show_language">
-	  <tr align="left">
-	  	<th><%= t(:origin) %>:</th>
-	    <td width="85%"><p><%= language.origin %></p></td>
-	  </tr>
-	  <tr align="left">
-	  	<th><%= t(:description) %>:</th>
-	    <td width="85%"><p><%= language.description %></p></td>
-	  </tr>
-	</table>
-	
-	<%= link_to image_tag('/images/edit_button_big.png'), edit_language_path(language), :rel=>'facebox', :title=>t(:Edit) if can? :update, language %> 
-	<%= link_to image_tag('/images/delete_button_big2.png'), delete_language_path(language), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} if can? :destroy, language %> <br />
+<!--BEGIN TITLE &BREADCRUMB PAGE-->
+<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+	<div class="page-header pull-left">
+		<div class="language_title">
+			<%= language.name %>
+		</div>
+	</div>
+	<ol class="breadcrumb page-breadcrumb pull-right">
+		<li>
+			<i class="fa fa-home"></i>&nbsp;<a href=<%= root_url %>><%= t(:home)%></a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+		</li>
+		<li class="hidden">
+			<a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+		</li>
+		<li class="active">
+			<%= language.name %>
+		</li>
+	</ol>
+	<div class="clearfix"></div>
+</div>
+<!--END TITLE & BREADCRUMB PAGE-->
+
+<div class="panel">
+	<div class="panel-body">
+		<div class="profile">
+			<div style="margin-bottom: 15px" class="row">
+				<div class="col-xs-12 col-sm-8">					
+					<p>
+						<strong><%= t(:origin) %>:</strong> <%= language.origin %>
+					</p>
+					<p>
+						<strong><%= t(:description) %>:</strong> <%= language.description %>
+					</p>					
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div align="center">	
+	<%= link_to image_tag('/images/edit_button_big.png'), edit_language_path(language), :rel=>'facebox', :title=>t(:Edit) if can? :update, language %>
+	<%= link_to image_tag('/images/delete_button_big2.png'), delete_language_path(language), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} if can? :destroy, language %>
 	<br />
-	<%= link_to t(:Lexical), language_path(language),:class=>"default_button", :id=>"lexique_page" %>
+	<br />
+	<%= link_to t(:dictionary), language_path(language, :type=>'dictionary'),:class=>"default_button", :id=>"dictionary_page" %>
 	&nbsp;
-	<%= link_to t(:Forum), discussions_path(:language=>language, :page=>'1'), :class=>"default_button", :id=>"forum_page" %>
+	<%= link_to t(:expressions), language_path(language, :type=>'expressions'),:class=>"default_button", :id=>"expressions_page" %>
+	&nbsp;
+	<%= link_to t(:Forum), discussions_path(:language=>language, :page=>'1'), :class=>"default_button", :id=>"forum_page" %>	
 	<br />
 	<br />
 </div>
 
 <script>
+window.location.hash = '#lexiquefocus';
 
-	window.location.hash = '#lexiquefocus';
-	
-</script>	
+</script>

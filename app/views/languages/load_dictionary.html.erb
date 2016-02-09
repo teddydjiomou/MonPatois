@@ -1,41 +1,51 @@
+<div class="dictionary_title">
+	<h2 class="lexique_title"><%= t(:dictionary)%></h2>
+	<div class="alphabet" >
+		<% ('A'..'Z').to_a.each do |letter| %>
+		<%= link_to letter, '#dictionary', :onclick => "load_dictionary('"+@language.id.to_s+"', '"+ letter + "', '1')" %> |
+		<%end%>
+	</div>
+</div>
+<br />
+<div class="panel panel-orange">	
+	<div class="panel-body">
+		<table class="table table-hover table-bordered">			
+			<tbody>
+				<% @words.each do |word| %>
+					<tr>
+						<td> <% if word.get_dictionary(@language).count < 3 and current_user %>
+						<%= link_to word.french, new_translation_path(:word => word, :language => @language), :rel => 'facebox', :title=>t(:translate) if word.french? %>
+						<% else %>
+						<%= word.french if word.french? %>
+						<% end %> </td>
+						<td> <%= word.english if word.english? %> </td>
+						<% word.get_dictionary(@language).each do |trans| %>
+							<td> <%= trans.trans %>
+							<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'positive')", :title=>t(:vote_plus) %>
+							<%= '(' + trans.score.to_s + ')' %>
+							<%= link_to image_tag('/images/mine_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'negative')", :title=>t(:vote_mine) %>
+							</td>
+						<%end%>				
+					</tr>			
+				<%end%>																
+			</tbody>
+		</table>
+	</div>
+</div>
 
-  <table class="lexique">
-    <% @words.each do |word| %>
-    	<tr style="border-bottom: 1px solid #ED6347;">
-		    <td> 
-		    	<% if word.get_dictionary(@language).count < 3 and current_user %>
-				<%= link_to word.french, new_translation_path(:word => word, :language => @language), :rel => 'facebox', :title=>t(:translate) if word.french? %>
-				<% else %>
-				<%= word.french if word.french? %>
-				<% end %>
-			</td>
-			<td> 
-				<%= word.english if word.english? %>
-			</td>
-				<% word.get_dictionary(@language).each do |trans| %>
-					<td>						
-						<%= trans.trans %>
-						<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'positive')", :title=>t(:vote_plus) %>
-						<%= '(' + trans.score.to_s + ')' %>
-						<%= link_to image_tag('/images/mine_button.png'), '#', :onclick => "vote('"+trans.id.to_s+"', '', 'negative')", :title=>t(:vote_mine) %>
-						|
-					</td>
-				<%end%>
-
-		</tr>
-		
+<br />
+<div style="font-size: 15px;">
+	<% if @num_pages != '1' %>
+	<% ('1'..@num_pages).to_a.each do |page| %>
+	<%= link_to page, '#dictionary', :onclick => "load_dictionary('"+@language.id.to_s+"', '"+ @letter + "', '"+ page + "')" %> -
 	<%end%>
-  </table>
-  <br />
-  <div style="font-size: 10px;">
-  	<% if @num_pages != '1' %>
-	  	<% ('1'..@num_pages).to_a.each do |page| %>
-			<%= link_to page, '#dictionary', :onclick => "load_dictionary('"+@language.id.to_s+"', '"+ @letter + "', '"+ page + "')" %> -
-		<%end%>	
 	<% end %>
-  </div>
+</div>
 <script type="text/javascript" >
-  jQuery(document).ready(function($) {
-	  $('a[rel*=facebox]').facebox({loadingImage : '/images/loading.gif', closeImage   : '/images/closelabel.png'}) 
-	});
+	jQuery(document).ready(function($) {
+		$('a[rel*=facebox]').facebox({
+			loadingImage : '/images/loading.gif',
+			closeImage : '/images/closelabel.png'
+		})
+	}); 
 </script>

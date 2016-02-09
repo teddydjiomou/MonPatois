@@ -16,9 +16,14 @@ class LanguagesController < ApplicationController
   # GET /languages/1.json
   def show
     @language = Language.find(params[:id])
+    type = params[:type]
 
     respond_to do |format|
-      format.html {render 'show_lexique'}# show.html.erb
+      if type == "dictionary"
+        format.html {render 'show_dictionary'}# show.html.erb
+      else
+        format.html {render 'show_expressions'}# show.html.erb
+      end
       format.json { render json: @language }
     end
   end

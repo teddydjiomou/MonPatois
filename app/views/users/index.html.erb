@@ -4,8 +4,9 @@
   <tr>
     <th>Name</th>
     <th>Username</th>
-    <th>Hashed password</th>
+    <th>role</th>
     <th>Mail</th>
+    <th>password</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,10 +16,11 @@
   <tr>
     <td><%= user.name %></td>
     <td><%= user.username %></td>
-    <td><%= user.hashed_password %></td>
+    <td><%= user.role %></td>
     <td><%= user.mail %></td>
+    <td><%= not user.hashed_password.nil? %></td>
     <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Edit', edit_user_path(user, :type=>'profile_info') %></td>
     <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>

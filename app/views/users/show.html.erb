@@ -1,25 +1,47 @@
-<p id="notice"><%= notice %></p>
+<p id="notice">
+	<%= notice %>
+</p>
 
+<div class="panel" style="border: 3px solid #ED6347;">
+	<div class="panel-body">
+		<div class="profile">
+			<div style="margin-bottom: 15px" class="row">
+				<div class="col-xs-12 col-sm-8">
+					<h2> <%= @user.surname %></h2>
+					<p><strong><%= t(:level) %>:</strong> <%= @user.level %></p>
+					<p><strong><%= t(:feedback) %>:</strong> <%= @user.feedback %></p>
+					<p>
+						<strong class="mrs"><%= t(:spoken_languages) %>:</strong>
+						<% @user.spoken_languages.each do |spoken| %>
+							 <%= spoken  %> 
+						<% end %>
+					</p>
+				</div>
+				<div class="col-xs-12 col-sm-4 text-center">
+					<figure><img src=<%= @user.get_image %> alt="" style="display: inline-block" class="img-responsive img-circle"/></figure>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>
+
+
+<% if can? :ud, @user %>
 <p>
-  <b>Name:</b>
-  <%= @user.name %>
+	<b>Name:</b>
+	<%= @user.name %>
 </p>
 
 <p>
-  <b>Username:</b>
-  <%= @user.username %>
+	<b>Username:</b>
+	<%= @user.username %>
 </p>
 
 <p>
-  <b>Hashed password:</b>
-  <%= @user.hashed_password %>
+	<b>Mail:</b>
+	<%= @user.mail %>
 </p>
 
-<p>
-  <b>Mail:</b>
-  <%= @user.mail %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Edit', edit_user_path(@user, :type=>'profile_info') %> |
 <%= link_to 'Back', users_path %>
+<% end %>

@@ -30,11 +30,13 @@ class Ability
     if current_user.role == 'admin'
       can :manage, :all
     else
-      can [:read, :update, :update_password], User do |user|
+      can [:update, :update_password], User do |user|
         user == current_user
       end 
       
       can :reset_password, User
+      
+      can :show, User
       
       can [:create, :load_expressions, :load_dictionary, :load_discussions,], Language
       

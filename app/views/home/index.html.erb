@@ -1,3 +1,49 @@
-
+<div class="panel-body">
+			<marquee direction="up" scrollamount="2" height="100%">
+				<table class="scroll_table">
+					<% Expression.all.shuffle.each do |e| %>	
+						<% if e.french? %>
+							<tr><td style="font-size: 16px;"><%= 'Francais:"'+e.french+'"' %></td></tr>	
+							<tr><td style="font-size: 20px;"><%= e.language.name + ': "' + e.trans+'"' %></td></tr>						
+						<% end %>
+						<% if e.english? %>
+							<tr><td style="font-size: 16px;"><%= 'English:"'+e.english+'"' %></td></tr>	
+							<tr><td style="font-size: 20px;"><%= e.language.name + ': "' + e.trans+'"' %></td></tr>	
+							 <br />
+						<% end %>						
+						<tr><td></td></tr>
+						<tr><td></td></tr>
+						<tr><td></td></tr>
+										
+					<%end%>
+				</table>
+			</marquee>		
+		</div>
+		
+		
+		<div class="language_tag_cloud">	
+			<div id="whatever">
+				<br />
+				<% Language.all.sort_by!{ |m| m.name.downcase }.each do |l| %>
+					&nbsp;
+					<% if l.verify? or (current_user and current_user.is_admin?)%>
+						<a href=<%= language_path(l) %> rel=<%= rand(1..10).to_s %>><%= l.name %></a>
+					<% end %>
+				<%end%>
+			</div>
+			<br />
+			<br />
+			&nbsp;
+			<%= link_to t(:New_language), new_language_path(), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
+			<br />
+			<br />			
+		</div>			
 	
-
+<script type="text/javascript">		
+			$(document).ready(function () {			
+			  $('#whatever a').tagcloud({
+			  size: {start: 10, end: 18, unit: 'px'},
+			  color: {start: '#ffa500', end: '#800000'}
+				});
+			});		
+	    </script>

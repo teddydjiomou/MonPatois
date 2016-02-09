@@ -1,174 +1,45 @@
-<div id="banner">
-	<link rel="shortcut icon" href="/images/logo.jpg"/>
-	<br />
-	<!--%= link_to image_tag('/images/banner_image.jpg'), root_url, :class => "banner_link" %-->						
-	<img src="/images/banner_image.jpg" />
-	<!--h1 align="center" style="font-size: 25px;"> Ne laisse pas s'éclipser ton dialecte...</h1-->
-	 
-	<div class="contact">
-		<a id="contact_us_form" href="/contact_form" class="login_button" rel='facebox'> <%= t(:contact_us)%> </a>		
-	</div> 
-	 
-	<div class="logout">
-	    <% if session[:user_id].nil? %>
-		    <div class="container">
-				<a id="modal_trigger" href="#modal" class="login_button"><%= t(:click_here_to_login_or_register)%></a>
-			
-				<div id="modal" class="popupContainer" style="display:none;">
-					<header class="popupHeader">
-						<span class="header_title"><%= t(:login)%></span>
-						<span class="modal_close"><i class="fa fa-times"></i></span>
-					</header>
-					
-					<section class="popupBody">
-						<!-- Social Login -->
-						<div class="social_login">
-							<div class="">
-								<a href="/auth/facebook" class="social_box fb">
-									<span class="icon"><i class="fa fa-facebook"></i></span>
-									<span class="icon_title"><%= t(:connect_with_facebook) %></span>
-									
-								</a>
-			
-								<a href="/auth/google" class="social_box google">
-									<span class="icon"><i class="fa fa-google-plus"></i></span>
-									<span class="icon_title"><%= t(:connect_with_google) %></span>
-								</a>
-								
-								<a href="/auth/twitter" class="social_box twitter">
-									<span class="icon"><i class="fa fa-twitter"></i></span>
-									<span class="icon_title"><%= t(:connect_with_twitter) %></span>
-								</a>
-							</div>
-			
-							<div class="centeredText">
-								<span><%= t(:or_use_email)%></span>
-							</div>
-			
-							<div class="action_btns">
-								<div class="one_half"><a href="#" id="login_form" class="btn"><%= t(:login)%></a></div>
-								<div class="one_half last"><a href="#" id="register_form" class="btn"><%= t(:sign_up)%></a></div>
-							</div>
-						</div>
-			
-						<!-- Username & Password Login form -->
-						<div class="user_login">
-							<form>								
-		
-								<label><%= t(:email_address)%></label>
-								<input type="text" id="logmail" />
-								<br />
-			
-								<label><%= t(:password)%></label>
-								<input type="password" id="logpassword"/>
-								<br />
-			
-								<div class="action_btns">
-									<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> <%= t(:Back)%></a></div>
-									<div class="one_half last"><a href="#" id="login_button" login_url=<%= root_url+'/create_session' %> class="btn btn_red"><%= t(:login)%></a></div>
-								</div>
-							</form>
-			
-							<a href="#" id="reset_password_form" class="forgot_password"><%= t(:forgot_password)%></a>
-						</div>
-						
-						
-						<!-- Password Reset form -->
-						<div class="password_reset">
-							<form>								
-		
-								<label><%= t(:email_address)%></label>
-								<input type="text" id="resmail" />
-								<br />										
-			
-								<div class="action_btns">
-									<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> <%= t(:Back)%></a></div>
-									<div class="one_half last"><a href="#" id="reset_button" reset_url=<%= root_url+'/reset_password' %> class="btn btn_red"><%= t(:reset)%></a></div>
-								</div>
-							</form>			
-						</div>											
-						
-			
-						<!-- Register Form -->
-						<div class="user_register">
-							<form>
-								<label><%= t(:full_name)%></label>
-								<input type="text" id="name"/>
-								<br />
-								
-								<label><%= t(:username)%></label>
-								<input type="text" id="username"/>
-								<br />
-			
-								<label><%= t(:email_address)%></label>
-								<input type="email" id="regmail"/>
-								<br />
-			
-								<label><%= t(:password)%></label>
-								<input type="password" id="regpassword"/>
-								<br />
-								
-								<label><%= t(:password_again)%></label>
-								<input type="password" id="password_confirm"/>
-								<br />
-			
-								<!--div class="checkbox">
-									<input id="send_updates" type="checkbox" />
-									<label for="send_updates">Send me occasional email updates</label>
-								</div-->
-			
-								<div class="action_btns">
-									<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> <%= t(:Back)%></a></div>
-									<div class="one_half last"><a href="#" id="register_button" register_url=<%= root_url+'/create_user' %> class="btn btn_red"><%= t(:sign_up)%></a></div>
-								</div>
-							</form>
-						</div>
-					</section>
-				</div>
-			</div>	
-		<%else%>
-		
-		<!-- dropdown container -->
-		<div class="dropdown">
-		
-		    <!-- trigger button -->
-		    <button><%= t(:welcome)+ " " + current_user.name %></button>
-		
-		    <!-- dropdown menu -->
-		    <ul class="dropdown-menu">
-		        <li><%= link_to t(:change_profile), edit_user_path(current_user.id, :type=>'profile_info'), :rel=>"facebox" if can? :read, current_user %></li>
-		        <li><%= link_to t(:change_password), edit_user_path(current_user.id, :type=>'password'), :rel=>"facebox" if current_user.hashed_password? %></li>
-		        <li><%= link_to t(:invite_friend), "/invite_friend_form", :rel=>"facebox", :id=>"invite_friend_form" %></li>
-		        <li><%= link_to t(:logout), logout_path %></li>
-		    </ul>
-		</div>
-							
-	    <% end %>    	    	    	    	    	    	    	    	    	    		    
-    </div>
-</div>
+<!--BEGIN TOPBAR-->
+        <div id="header-topbar-option-demo" class="page-header-topbar">
+            <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                <a id="logo" href=<%= root_url %> class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">MonPatois</span></a>
+                </div>
+            <div class="topbar-main">
+                
+                
+                <%= form_tag "/search", method: :get, :class =>"hidden-sm hidden-xs", :id=>"topbar-search" do %>
+                	<div class="input-icon right text-white"><i class="fa fa-search"></i>
+					  <%= text_field :search_string, :attr, :type=>'text', :class=>"form-control text-white", :placeholder => t(:search) %>
+					  </div>
+					<% end %>
+                                            
+                <ul class="nav navbar navbar-top-links navbar-right mbn">
+                <% if session[:user_id].nil? %>
+                	<li><span class="icon"><i class="fa fa-sign-in"></i></span><span class="icon_title"><%= t(:login_with) %></span></li>
+                    <li><a href="/auth/facebook" class="social_box fb"><span class="icon"><i class="fa fa-facebook"></i></span><span class="icon_title"><%= t(:facebook) %></span></a></li>                    
+                    <li><a href="/auth/google" class="social_box google"><span class="icon"><i class="fa fa-google-plus"></i></span><span class="icon_title"><%= t(:google) %></span></a></li>
+                    <li><a href="/auth/twitter" class="social_box twitter"><span class="icon"><i class="fa fa-twitter"></i></span><span class="icon_title"><%= t(:twitter) %></span></a></li>                    
+                    <li><a href="/login_form" id="login_form" rel="facebox"><span class="icon"><i class="fa fa-envelope"></i></span><span class="icon_title"><%= t(:email) %></span></a></li>
+                    <li><a href="/register_form" id="register_form" rel="facebox"><span class="icon"><i class="fa fa-pencil"></i></span><span class="icon_title"><%= t(:sign_up) %></span></a></li>         
+                <% else %>
+                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src=<%= current_user.get_image %> alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs"><%= t(:welcome)+ " " + current_user.name %></span>&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-user pull-right">
+                        	<% if can? :show, current_user %><li><a href=<%= edit_user_path(current_user.id, :type=>'profile_info') %> rel="facebox"><i class="fa fa-user"></i><%= t(:change_profile) %></a></li><% end %>
+                        	<% if current_user.hashed_password? %><li><a href=<%= edit_user_path(current_user.id, :type=>'password') %> rel="facebox"><i class="fa fa-lock"></i><%= t(:change_password) %></a></li><% end %>
+                        	<li><a href="/invite_friend_form" rel="facebox"><i class="fa fa-users"></i><%= t(:invite_friend) %></a></li>
+                        	<li><a href=<%= logout_path %>><i class="fa fa-sign-out"></i><%= t(:logout) %></a></li>
+                        </ul>                        
+                    </li>
+                    <li id="topbar-chat" class="hidden-xs"><a href="javascript:void(0)" data-step="4" data-intro="&lt;b&gt;Form chat&lt;/b&gt; keep you connecting with other coworker" data-position="left" class="btn-chat"><i class="fa fa-bell"></i><span class="badge badge-info">0</span></a></li>
+                <% end %>
+                </ul>
+            </div>
+        </nav>            
+        </div>
+        <!--END TOPBAR-->
 
 <script type="text/javascript">
-
-$( "#login_button" ).click(function() {
-	var email = $('#logmail').val();
-	var login_url = $('#login_button').attr('login_url');
-	var password = $('#logpassword').val();
-	jQuery.ajax({ 
-		        	url: login_url, 
-		        	type: 'POST', 
-		        	data: { 'mail' : email, 'password' : password},
-		        	dataType: 'html',
-		        	success: function(data) { 
-		        		if (data.split(';')[0] == 'error'){
-		        			alert(data.split(';')[1]);
-		        		}
-		        		else{
-		        			window.location.reload(true);
-		        		}
-		        		  },
-		        	beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},		    				
-    				});
-});
 
 $( "#reset_button" ).click(function() {
 	var email = $('#resmail').val();
@@ -177,37 +48,6 @@ $( "#reset_button" ).click(function() {
 		        	url: reset_url, 
 		        	type: 'POST', 
 		        	data: { 'mail' : email},
-		        	dataType: 'html',
-		        	success: function(data) { 
-		        		if (data.split(';')[0] == 'error'){
-		        			alert(data.split(';')[1]);
-		        		}
-		        		else{
-		        			alert(data);
-		        			window.location.reload(true);
-		        		}
-		        		  },
-		        	beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},		    				
-    				});
-});
-
-
-$( "#register_button" ).click(function() {
-	var email = $('#regmail').val();
-	var name = $('#name').val();
-	var username = $('#username').val();
-	var register_url = $('#register_button').attr('register_url');
-	var password = $('#regpassword').val();
-	var password_confirm = $('#password_confirm').val();
-	jQuery.ajax({ 
-		        	url: register_url, 
-		        	type: 'POST', 
-		        	data: { 'user' : { 'password': password,
-		        						'password_confirmation': password_confirm,
-		        						'name': name,
-		        						'username': username,
-		        						'mail': email}
-		        			},
 		        	dataType: 'html',
 		        	success: function(data) { 
 		        		if (data.split(';')[0] == 'error'){
@@ -267,4 +107,30 @@ $( "#register_button" ).click(function() {
   jQuery(document).ready(function($) {
 	  $('a[rel*=facebox]').facebox({loadingImage : '/images/loading.gif', closeImage   : '/images/closelabel.png'}) 
 	});
+	
+	function search(){
+		var tosearch = $('#searchbox').val();
+		jQuery.ajax({ 
+		        	url: "/search", 
+		        	type: 'GET', 
+		        	data: { 'string' : tosearch},
+		        	dataType: 'html',
+		        	success: function(data) { 
+		        		  },
+		        	beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},		    				
+    				});
+	};
+
+		$("form#topbar-searches").submit(function(){
+			var tosearch = $('#searchbox').val();
+			jQuery.ajax({ 
+			        	url: "/search", 
+			        	type: 'GET', 
+			        	data: { 'string' : tosearch},
+			        	dataType: 'html',
+			        	success: function(data) { 
+			        		  },
+			        	beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},		    				
+	    				});
+		});
 </script>

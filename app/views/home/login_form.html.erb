@@ -1,0 +1,77 @@
+<!-- Username & Password Login form -->
+						<div class="user_login">
+							<form>								
+		
+								<label><%= t(:email_address)%></label>
+								<input type="text" id="logmail" />
+								<br />
+			
+								<label><%= t(:password)%></label>
+								<input type="password" id="logpassword"/>
+								<br />
+			
+								<div class="action_btns">
+									<div class="one_half last"><a href="#" id="login_button" login_url=<%= root_url+'/create_session' %> class="btn btn_red"><%= t(:login)%></a></div>
+								</div>
+							</form>
+			
+							<a href="#" id="reset_password_form" class="forgot_password"><%= t(:forgot_password)%></a>
+						</div>
+
+<!-- Password Reset form -->
+						<div class="password_reset">
+							<form>								
+		
+								<label><%= t(:email_address)%></label>
+								<input type="text" id="resmail" />
+								<br />										
+			
+								<div class="action_btns">
+									<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> <%= t(:Back)%></a></div>
+									<div class="one_half last"><a href="#" id="reset_button" reset_url=<%= root_url+'/reset_password' %> class="btn btn_red"><%= t(:reset)%></a></div>
+								</div>
+							</form>			
+						</div>			
+<script type="text/javascript">
+
+$( "#login_button" ).click(function() {
+	var email = $('#logmail').val();
+	var login_url = $('#login_button').attr('login_url');
+	var password = $('#logpassword').val();
+	jQuery.ajax({ 
+		        	url: login_url, 
+		        	type: 'POST', 
+		        	data: { 'mail' : email, 'password' : password},
+		        	dataType: 'html',
+		        	success: function(data) { 
+		        		if (data.split(';')[0] == 'error'){
+		        			alert(data.split(';')[1]);
+		        		}
+		        		else{
+		        			window.location.reload(true);
+		        		}
+		        		  },
+		        	beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},		    				
+    				});
+});
+
+	$(function(){		
+		$(".user_login").show();
+		$(".header_title").text('Login');
+		// Calling Reset Password Form
+		$("#reset_password_form").click(function(){
+			$(".user_login").hide();
+			$(".password_reset").show();
+			$(".header_title").text('Reset Password');
+			return false;
+		});		
+		
+		// Going back to Social Forms
+		$(".back_btn").click(function(){
+			$(".user_login").show();
+			$(".password_reset").hide();
+			$(".header_title").text('Login');
+			return false;
+		});
+	});
+</script>

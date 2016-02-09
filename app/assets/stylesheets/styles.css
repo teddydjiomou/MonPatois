@@ -3,9 +3,6 @@
 body {    
     font-family: 'Open Sans', sans-serif; font-size: 14px;
     color: #000000 ;
-    background-attachment: fixed;
-    background-size: cover;
-    background-image: url('/images/scroll_back_image.jpg'); /*background-repeat: repeat;*/   
     
 }
 
@@ -115,7 +112,7 @@ a.btn_red {color: #FFF;}
 .dropdown {
     position: relative;
     display: inline-block;
-    text-align: right;
+    text-align: left;
 }
 
 .dropdown .dropdown-menu {
@@ -149,11 +146,6 @@ a.btn_red {color: #FFF;}
 
 /** List Item Styles **/
 .dropdown a {
-    display: block;
-    padding: 0.2em 0.8em;
-    text-decoration: none;
-    background: #CCCCCC;
-    color: #FFF;
 }
 
 /** List Item Hover Styles **/
@@ -191,20 +183,21 @@ a.btn_red {color: #FFF;}
 }
 
 .alphabet{
-	font-size: 9px;
+	font-size: 15px;
 }
 
-.scroll {
-	position: absolute;
-    top: 350px;
-    left: 3%;
-    width: 40%;
-    height: 250px;
+.scroll {	
+	position: relative;
+	top: 5%;
+    left: 10%;
+    width: 80%;
+    height: 50%;
     border-width: 2px;
     border-style: solid;
     border-color: #888888;
     border-radius: 15px;
-    background-image: url('/images/scroll_back_image.jpg');
+    background-color: #FFF;
+    /*background-image: url('/images/scroll_back_image.jpg');*/
     background-size: cover;
 }
 
@@ -250,6 +243,7 @@ a.btn_red {color: #FFF;}
 .scroll_table td {
 	padding: 4px;
 	border-collapse: collapse;
+	color: #3C3C3C;
 	/*background-color: #ED6347;
 	color: #FFF;*/
 		
@@ -284,11 +278,11 @@ tr.scroll_table td{
     background-color: #FFF;
 }
 
-.language_tag_cloud {
-	position: absolute;
-    top: 650px;
-    left: 20%;
-    width: 60%;
+.language_tag_cloud {	
+	position: relative;
+    top: 5%;
+    left: 10%;
+    width: 80%;
     height: auto;
     /*background-image: url('/images/scroll_back_image.jpg');
     background-size: cover;*/

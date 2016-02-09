@@ -58,7 +58,9 @@ MonPatois::Application.routes.draw do
   post "invite", :to => 'home#invite'
   get "/contact_form", :to => 'home#contact_form'
   get "/invite_friend_form", :to => 'home#invite_friend_form'
-  
+  get "/login_form", :to => 'home#login_form'
+  get "/register_form", :to => 'home#register_form'
+  get   '/search', :to => 'home#search', :as => :login
 
 
   root :to => "home#index"

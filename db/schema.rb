@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150709191356) do
+ActiveRecord::Schema.define(:version => 20160207122056) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20150709191356) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "role"
+    t.string   "image"
   end
 
   create_table "votations", :force => true do |t|

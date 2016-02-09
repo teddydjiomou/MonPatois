@@ -1,83 +1,119 @@
-<br />
-<table class="lexique" style="width: 100%;">   
-    <% @expressions.each do |exp| %>
-    <tr valign="top" style="border-bottom: 1px solid #ED6347;">
-    	<td width="40%">
-    		<table>
-    			<tr><td><p><%= '"'+exp.french+'"' if exp.french? %></p></td></tr>
-	    		<tr><td><p><%= '"'+exp.english+'"' if exp.english? %></p></td></tr>
-	    		<tr><td><p><%= '"'+exp.trans+'"' %></p></td></tr>
-	    		<tr>
-	    			<td>
-						<br />
-						<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('', '"+exp.id.to_s+"', 'positive')", :title=>t(:vote_plus) %>
-						<%='(' + exp.score.to_s + ')' %>
-						<%= link_to image_tag('/images/mine_button.png'), '#', :onclick => "vote('', '"+exp.id.to_s+"', 'negative')", :title=>t(:vote_mine) %>
-					</td>
-	    		</tr>
-    		</table>    		
-    	</td>
-    	
-		<td width="60%">	
-			<p>			
-				<%  %> 										
-					<%= link_to image_tag('/images/comment_button.png'), new_comment_path(:expression => exp), :rel => 'facebox', :title=>t(:comment) if current_user %>
-					&nbsp;
-					<% if can? :ud, exp %>
-						<%= link_to image_tag('/images/edit_button.png'), edit_expression_path(exp), :rel => 'facebox', :title=>t(:Edit) %>
-						&nbsp;
-						<%= link_to image_tag('/images/delete_button2.png'), delete_expression_path(exp), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} %> <br />
-					<%end%>
-					<% if exp.comments.any? %>
-						<h4> <%= link_to t(:comments), '#expressions', :onclick => "show_hide_comments('exp"+exp.id.to_s+"')" %> </h4>
-						<div id=<%= 'exp'+exp.id.to_s %> style="display: none;">	
-							<table class="lexique_comments">				
-								<% exp.comments.each do |comment| %>	
-									<tr valign="top" style="border-bottom: 1px solid #ED6347;">	
-										<th width="20%" align="right">		
-											<br />							
-											<%= comment.user.surname + ':'%>
-										</th>
-										<td width="60%">									
-											<p><%= comment.text %></p>
-										</td>
-										<td width="20%">
-											<br />
-											<% if can? :ud, comment %>
-												<%= link_to image_tag('/images/edit_button.png'), edit_comment_path(comment),:rel => 'facebox', :title=>t(:Edit) %>
-												<%= link_to image_tag('/images/delete_button2.png'), delete_comment_path(comment), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} %>
-											<%end%>
-										</td>
-									</tr>
-								<% end %>	
-							</table>	
+<div class="expressions_title">
+	<h2 class="lexique_title"><%= t(:expressions)%></h2>
+	<div>
+		<br />
+		<%= link_to t(:New_expression), new_expression_path(:language => @language), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
+	</div>
+
+	<br />
+	<table class="lexique" style="width: 100%;">
+		<% @expressions.each do |exp| %>
+		<tr valign="top" style="border-bottom: 1px solid #ED6347;">
+			<td width="40%">
+			<table>
+				<tr>
+					<td>
+					<p>
+						<%= '"'+exp.french+'"' if exp.french? %>
+					</p></td>
+				</tr>
+				<tr>
+					<td>
+					<p>
+						<%= '"'+exp.english+'"' if exp.english? %>
+					</p></td>
+				</tr>
+				<tr>
+					<td>
+					<p>
+						<%= '"'+exp.trans+'"' %>
+					</p></td>
+				</tr>
+				<tr>
+					<td>
+					<br />
+					<%= link_to image_tag('/images/plus_button.png'), '#', :onclick => "vote('', '"+exp.id.to_s+"', 'positive')", :title=>t(:vote_plus) %>
+					<%= '(' + exp.score.to_s + ')' %>
+					<%= link_to image_tag('/images/mine_button.png'), '#', :onclick => "vote('', '"+exp.id.to_s+"', 'negative')", :title=>t(:vote_mine) %> </td>
+				</tr>
+			</table></td>
+
+			<td width="60%">
+			<p>
+				<% %>
+				<%= link_to image_tag('/images/comment_button.png'), new_comment_path(:expression => exp), :rel => 'facebox', :title=>t(:comment) if current_user %>
+				&nbsp;
+				<% if can? :ud, exp %>
+				<%= link_to image_tag('/images/edit_button.png'), edit_expression_path(exp), :rel => 'facebox', :title=>t(:Edit) %>
+				&nbsp;
+				<%= link_to image_tag('/images/delete_button2.png'), delete_expression_path(exp), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} %>
+				<br />
+				<%end%>
+				<% if exp.comments.any? %>
+				<h4> <%= link_to t(:comments), '#expressions', :onclick => "show_hide_comments('exp"+exp.id.to_s+"')" %> </h4>
+				<div id=<%= 'exp'+exp.id.to_s %> style="display: none;">
+
+					<div class="portlet box">
+						<div class="portlet-body">
+							<div class="chat-scroller">
+								<ul class="chats">
+									<% exp.comments.reverse_each do |comment| %>
+										<% if comment.user == current_user %>
+										<li class="in">
+										<% else %>
+										<li class="out">
+										<% end %>
+										<img src=<%= comment.user.get_image %> class="avatar img-responsive" />
+										<div class="message">
+											<span class="chat-arrow"></span><a href=<%= user_path(comment.user) %> class="chat-name", rel="facebox"><%= comment.user.surname + ':'%></a>&nbsp;<span
+											class="chat-datetime"><%= comment.created_at.to_s(:db) %></span><span class="chat-body"><%= comment.text %></span>
+										</div>
+										<br />
+										<% if comment.user == current_user %>
+										<div align="left">
+										<% else %>
+										<div align="right">
+										<% end %>
+										<% if can? :ud, comment %>
+										<%= link_to image_tag('/images/edit_button.png'), edit_comment_path(comment),:rel => 'facebox', :title=>t(:Edit) %>
+										<%= link_to image_tag('/images/delete_button2.png'), delete_comment_path(comment), {:title=>t(:Delete), :onclick => "return confirm('"+t(:sure_to_delete)+"')", :method => :delete, :remote => true} %>
+										<%end%>
+										</div>
+										</li>
+									<% end %>
+								</ul>
+							</div>
 						</div>
-					<% end %>
-				<% %>	
-			</p>		
-		</td>
-	</tr>
-	<%end%>
-</table>   
-<br />
-<div style="font-size: 10px;">
-	<% if @num_pages != '1' %>
-	  	<% ('1'..@num_pages).to_a.each do |page| %>
-			<%= link_to page, '#expressions', :onclick => "load_expressions('"+@language.name+"', '"+ page + "')" %> -
-		<%end%>	
-	<% end %>
-</div>
+					</div>
+				</div>
+				<% end %>
+				<% %>
+			</p></td>
+		</tr>
+		<%end%>
+	</table>
+	<br />
+	<div style="font-size: 15px;">
+		<% if @num_pages != '1' %>
+		<% ('1'..@num_pages).to_a.each do |page| %>
+		<%= link_to page, '#expressions', :onclick => "load_expressions('"+@language.name+"', '"+ page + "')" %> -
+		<%end%>
+		<% end %>
+	</div>
 
-<script type="text/javascript" >
-  jQuery(document).ready(function($) {
-	  $('a[rel*=facebox]').facebox({loadingImage : '/images/loading.gif', closeImage   : '/images/closelabel.png'}) 
-	});
+	<script type="text/javascript" >
+		jQuery(document).ready(function($) {
+			$('a[rel*=facebox]').facebox({
+				loadingImage : '/images/loading.gif',
+				closeImage : '/images/closelabel.png'
+			})
+		});
 
-function show_hide_comments(id) {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-   };
-</script>  
+		function show_hide_comments(id) {
+			var e = document.getElementById(id);
+			if (e.style.display == 'block')
+				e.style.display = 'none';
+			else
+				e.style.display = 'block';
+		};
+	</script>

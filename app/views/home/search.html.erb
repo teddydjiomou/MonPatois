@@ -1,0 +1,68 @@
+<br />
+<%= t(:results_containing) %>  <strong style="font-size: 17px; color: #ED6347"><%= @string %></strong>:<br />
+
+<h4><%= t(:words) + ":" if (@words.any? or @translations.any?) %></h4>
+<% @words.each do |word|%>
+	&nbsp
+	&nbsp
+	<strong><%= word.french unless word.french.nil? %>, <%= word.english unless word.english.nil? %></strong><br />
+	<% word.translations.each do |trans| %>
+		&nbsp
+		&nbsp
+		&nbsp
+		&nbsp
+		&nbsp
+		&nbsp
+		<%= trans.language.name + ": " + trans.trans %><br />
+	<% end %> 
+<% end %>
+
+<% @translations.each do |trans|%>
+	&nbsp
+	&nbsp
+	<strong><%= trans.trans %></strong>: <%= trans.language.name %><br />
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	<%= t(:french) + ": " + trans.word.french unless trans.word.french.nil? %><br />
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	<%= t(:english) + ": " + trans.word.english unless trans.word.english.nil? %><br />
+<% end %>
+
+
+<h4><%= t(:expressions) + ":" if @expressions.any? %></h4>
+<% @expressions.each do |exp|%>
+	&nbsp
+	&nbsp
+	<strong><%= exp.trans %></strong>: <%= exp.language.name %><br />
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	<%= t(:french) + ": " + exp.french unless exp.french.nil? %><br />
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	&nbsp
+	<%= t(:english) + ": " + exp.english unless exp.english.nil? %><br />
+<% end %>
+
+
+<h4><%= t(:languages) + ":" if @languages.any? %></h4>
+<% @languages.each do |lang|%>
+	&nbsp
+	&nbsp
+	<strong><%= lang.name %></strong><br />	
+<% end %>

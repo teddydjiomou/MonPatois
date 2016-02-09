@@ -4,6 +4,24 @@ class HomeController < ApplicationController
     
   end
   
+  def search
+    @string = params[:search_string][:attr]
+    @words = Word.where("french like ?", "%#{@string}%")
+    @words += Word.where("english like ?", "%#{@string}%")
+    
+    @translations = Translation.where("trans like ?", "%#{@string}%")
+    
+    @expressions = Expression.where("french like ?", "%#{@string}%")
+    @expressions += Expression.where("english like ?", "%#{@string}%")
+    @expressions += Expression.where("trans like ?", "%#{@string}%")
+    
+    @languages = Language.where("name like ?", "%#{@string}%")
+    
+    respond_to do |format|
+      format.html #{ render :layout => false} 
+    end
+  end
+  
   def contact_form
     respond_to do |format|
       format.html { render :layout => false} 
@@ -11,6 +29,18 @@ class HomeController < ApplicationController
   end
   
   def invite_friend_form
+        respond_to do |format|
+      format.html { render :layout => false} 
+    end
+  end
+  
+  def login_form
+        respond_to do |format|
+      format.html { render :layout => false} 
+    end
+  end
+  
+  def register_form
         respond_to do |format|
       format.html { render :layout => false} 
     end

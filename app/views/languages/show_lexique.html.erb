@@ -1,58 +1,42 @@
 <%= render :partial => 'languages/show', :locals => {:language => @language} %>
 <br />
-<br />	
-	<table style="vertical-align: top;">
-		<tr>
-			<td width="40%" style="vertical-align: top;">
-				<div class="dictionary_title">	
-					<h2 class="lexique_title"><%= t(:dictionary)%></h2>
-					<div class="alphabet" >	
-						<% ('A'..'Z').to_a.each do |letter| %>
-						<%= link_to letter, '#dictionary', :onclick => "load_dictionary('"+@language.id.to_s+"', '"+ letter + "', '1')" %> |
-						<%end%>	
-					</div>
-				</div>
-				<div id="dictionary" class="dictionary"></div>
-			</td>
-			<td width="59%" style="vertical-align: top;">				
-				<div class="expressions_title">
-					<h2 class="lexique_title"><%= t(:expressions)%></h2>
-					<div>
-						<br />
-						<%= link_to t(:New_expression), new_expression_path(:language => @language), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
-					</div>
-					<!--%= link_to 'Expressions', '#', :onclick => 'load_expressions("'+@language.name+'")' %-->
-				</div>	
-				<div id="expressions" class="expressions">	</div>
-			</td>
-		</tr>
-	</table>
-	
+<div id="dictionary" class="dictionary"></div>
+<div id="expressions" class="expressions"></div>
 <script type="text/javascript">
-  load_dictionary('<%=@language.id%>', 'a', '1');
-  load_expressions('<%=@language.id%>', '1');
+	load_dictionary('<%= @language.id%>', 'a', '1');
+	load_expressions('<%= @language.id%>', '1');
 </script>
 
 <script type="text/javascript" >
-  jQuery(document).ready(function($) {
-	  $('a[rel*=facebox]').facebox({loadingImage : '/images/loading.gif', closeImage   : '/images/closelabel.png'}) 
+	jQuery(document).ready(function($) {
+		$('a[rel*=facebox]').facebox({
+			loadingImage : '/images/loading.gif',
+			closeImage : '/images/closelabel.png'
+		})
 	});
-	
-$(function(){
-		// Calling Lexical Page
-		$("#lexique_page").click(function(){
-			$(".forum").hide();
-			$(".lexique").show();
+
+	$(function() {
+		// Calling Dictionary Page
+		$("#dictionary_page").click(function() {
+			$(".expressions").hide();
+			$(".dictionary").show();
+			return false;
+		});
+		
+		// Calling Expressions Page
+		$("#expressions_page").click(function() {
+			$(".expressions").show();
+			$(".dictionary").hide();
 			return false;
 		});
 
 		// Calling Forum Page
 		/*$("#forum_page").click(function(){
-			$(".lexique").hide();
-			$(".forum").show();
-			return false;
-		});*/
+		 $(".lexique").hide();
+		 $(".forum").show();
+		 return false;
+		 });*/
 
-});
+	}); 
 </script>
 

@@ -1,0 +1,71 @@
+<!-- Register Form -->
+						<div class="user_register">
+							<form>
+								<label><%= t(:full_name)%></label>
+								<input type="text" id="name"/>
+								<br />
+								
+								<label><%= t(:username)%></label>
+								<input type="text" id="username"/>
+								<br />
+			
+								<label><%= t(:email_address)%></label>
+								<input type="email" id="regmail"/>
+								<br />
+			
+								<label><%= t(:password)%></label>
+								<input type="password" id="regpassword"/>
+								<br />
+								
+								<label><%= t(:password_again)%></label>
+								<input type="password" id="password_confirm"/>
+								<br />
+			
+								<!--div class="checkbox">
+									<input id="send_updates" type="checkbox" />
+									<label for="send_updates">Send me occasional email updates</label>
+								</div-->
+			
+								<div class="action_btns">
+									<div class="one_half last"><a href="#" id="register_button" register_url=<%= root_url+'/create_user' %> class="btn btn_red"><%= t(:sign_up)%></a></div>
+								</div>
+							</form>
+						</div>
+
+<script type="text/javascript">
+
+$( "#register_button" ).click(function() {
+	var email = $('#regmail').val();
+	var name = $('#name').val();
+	var username = $('#username').val();
+	var register_url = $('#register_button').attr('register_url');
+	var password = $('#regpassword').val();
+	var password_confirm = $('#password_confirm').val();
+	jQuery.ajax({ 
+		        	url: register_url, 
+		        	type: 'POST', 
+		        	data: { 'user' : { 'password': password,
+		        						'password_confirmation': password_confirm,
+		        						'name': name,
+		        						'username': username,
+		        						'mail': email}
+		        			},
+		        	dataType: 'html',
+		        	success: function(data) { 
+		        		if (data.split(';')[0] == 'error'){
+		        			alert(data.split(';')[1]);
+		        		}
+		        		else{
+		        			alert(data);
+		        			window.location.reload(true);
+		        		}
+		        		  },
+		        	beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},		    				
+    				});
+});
+
+$(function(){
+		$(".user_register").show();
+		$(".header_title").text('Register');		
+	});
+</script>

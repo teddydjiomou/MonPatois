@@ -3,6 +3,9 @@
 <head>
   <title>MonPatois</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="/javascripts/test.js" ></script>
   <script type="text/javascript" src="/javascripts/jquery.js" ></script>  
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>  
@@ -17,6 +20,23 @@
   <script src="/themes/1/js-image-slider.js" type="text/javascript"></script>
   <link href="/generic.css" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/images/logo_icon.ico">
+  
+  <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/animate.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/all.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/main.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/style-responsive.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/zabuto_calendar.min.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/pace.css">
+    <link type="text/css" rel="stylesheet" href="/KAdmin-Dark/styles/jquery.news-ticker.css">
   <%= csrf_meta_tags %>
   
 </head>
@@ -29,130 +49,88 @@
 			<% end %>
 		</div>
 	
-		
-		<div class="scroll">
-			<marquee direction="up" scrollamount="2" height="100%">
-				<table class="scroll_table">
-					<% Expression.all.shuffle.each do |e| %>	
-						<% if e.french? %>
-							<tr><td style="font-size: 14px;"><%= 'Francais:"'+e.french+'"' %></td></tr>	
-							<tr><td style="font-size: 18px;"><%= e.language.name + ': "' + e.trans+'"' %></td></tr>						
-						<% end %>
-						<% if e.english? %>
-							<tr><td style="font-size: 14px;"><%= 'English:"'+e.english+'"' %></td></tr>	
-							<tr><td style="font-size: 18px;"><%= e.language.name + ': "' + e.trans+'"' %></td></tr>	
-							 <br />
-						<% end %>						
-						<tr><td></td></tr>
-						<tr><td></td></tr>
-						<tr><td></td></tr>
-										
-					<%end%>
-				</table>
-			</marquee>		
-		</div>
-		
-		
-	
-		<div id="slide">
-			<div id="sliderFrame">
-		        <div id="slider">
-		            <img src="/images/slide1.jpg"/>
-		            <img src="/images/slide2.jpg"/>
-		            <img src="/images/slide3.jpg"/>
-		            <img src="/images/slide4.jpg"/>
-		            <img src="/images/slide5.jpg"/>
-		            <img src="/images/slide6.jpg"/>
-		            <img src="/images/slide7.jpg"/>
-		        </div>
-		    </div>
-	    </div>
-	
-		<div class="language_tag_cloud">	
-			<div id="whatever">
-				<br />
-				<% Language.all.sort_by!{ |m| m.name.downcase }.each do |l| %>
-					&nbsp;
-					<% if l.verify? or (current_user and current_user.is_admin?)%>
-						<a href=<%= language_path(l) %> rel=<%= rand(1..10).to_s %>><%= l.name %></a>
-					<% end %>
-				<%end%>
-			</div>
-			<br />
-			<br />
-			&nbsp;
-			<%= link_to t(:New_language), new_language_path(), :rel => 'facebox', :class=>"default_button", :id=>"modal_trigger_add" if current_user %>
-			<br />
-			<br />			
-		</div>			
-		
-		<div  id="lexiquefocus" class="wrap_down">
-			<%= yield %>
-		</div>
-		
-		<% if current_user %>
-		<div class="board">	
-			<table class="board_table">
-				<th><%= t(:wall) %></th>
-				<tr>
-					<th align="left">
-						<%= t(:languages_created) %>:
-					</th>
-					<td align="right">
-						<%= current_user.languages.count %>
-					</td>
-				</tr>
-				<tr>
-					<th align="left">
-						<%= t(:words_translated) %>:  
-					</th>
-					<td align="right">
-						<%= current_user.translations.count %>
-					</td>
-				</tr>
-				<tr>
-					<th align="left">
-						<%= t(:expressions_created) %>:  
-					</th>
-					<td align="right">
-						<%= current_user.expressions.count %>
-					</td>
-				</tr>
-				<tr>
-					<th align="left">
-						<%= t(:votations_given) %>:  
-					</th>
-					<td align="right">
-						<%= current_user.votations.count %>
-					</td>
-				</tr>
-				<tr>
-					<th align="left">
-						<%= t(:votations_received) %>:  
-					</th>
-					<td align="right">
-						<%= current_user.votations_received %>
-					</td>
-				</tr>
-				<tr>
-					<th align="left">
-						<%= t(:feedback) %>:  
-					</th>
-					<td align="right">
-						<%= current_user.feedback %>
-					</td>
-				</tr>
-				<tr>
-					<th align="left">
-						<%= t(:level) %>:  
-					</th>
-					<td align="right">
-						<%= current_user.level %>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<% end %>
+		<div id="wrapper">
+            <!--BEGIN SIDEBAR MENU-->
+            <nav id="sidebar" role="navigation" data-step="2" data-intro="Template has &lt;b&gt;many navigation styles&lt;/b&gt;"
+                data-position="right" class="navbar-default navbar-static-side">
+            <div class="sidebar-collapse menu-scroll">
+                <ul id="side-menu" class="nav">
+                    
+                     <div class="clearfix"></div>
+                    <li><a href=<%= root_url %>><i class="fa fa-home fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title"><%= t(:home)%></span></a></li>                    
+                    <li><a id="contact_us_form" href="/contact_form" rel='facebox'><i class="fa fa-edit fa-fw">
+                        <div class="icon-bg bg-violet"></div>
+                    </i><span class="menu-title"><%= t(:contact_us)%></span></a>
+                      
+                    </li>
+                    
+                       
+                    <% if current_user %>      
+                    <li><i >
+                        <div class="icon-bg bg-blue"></div>
+                    </i><span class="menu-title"><%= t(:board_table) %></span>
+                    </li>
+                    <li><i >
+                        <div class="icon-bg bg-red"></div>
+                    </i><span class="menu-title"><%= t(:languages_created) %>: <%= current_user.languages.count %></span>
+                      
+                    </li>
+                    <li><i >
+                        <div class="icon-bg bg-yellow"></div>
+                    </i><span class="menu-title"><%= t(:words_translated) %>: <%= current_user.translations.count %></span>
+                       
+                    </li>
+                    <li><i >
+                        <div class="icon-bg bg-grey"></div>
+                    </i><span class="menu-title"><%= t(:expressions_created) %>: <%= current_user.expressions.count %></span></a>
+                      
+                    </li>
+                    <li><i >
+                        <div class="icon-bg bg-dark"></div>
+                    </i><span class="menu-title"><%= t(:votations_given) %>: <%= current_user.votations.count %></span>
+                      
+                    </li>
+                    <li><i >
+                        <div class="icon-bg bg-primary"></div>
+                    </i><span class="menu-title"><%= t(:votations_received) %>: <%= current_user.votations_received %></span>
+                      
+                    </li>
+                    <li><i >
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title"><%= t(:feedback) %>: <%= current_user.feedback %></span>
+                       
+                    </li>
+                    <li><i >
+                        <div class="icon-bg bg-green"></div>
+                    </i><span class="menu-title"><%= t(:level) %>: <%= current_user.level %></span></li>
+                    <% end %>
+                </ul>
+            </div>
+        </nav>
+            <!--END SIDEBAR MENU-->
+            
+            <!--BEGIN PAGE WRAPPER-->
+            <div id="page-wrapper">
+            	<%= yield %>
+            	
+            	<br />
+            	<br />
+            	<br />
+            	<br />
+            	<br />
+            	<br />
+            	<!--BEGIN FOOTER-->
+                <div id="footer">
+                    <div class="copyright">Copyright © 2015 - MediaCam | All Rights Reserved</div>
+                </div>
+                <!--END FOOTER-->
+            </div>
+                            
+                
+            <!--END PAGE WRAPPER-->
+        </div>
 		
 </body>
 </html>

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
-  attr_accessible :hashed_password, :mail, :name, :username, :role
+  attr_accessible :hashed_password, :mail, :name, :username, :role, :image
   validates :password, :presence     => true,
                        :confirmation => true,
                         :length       => { :minimum => 4 },
@@ -42,6 +42,31 @@ class User < ActiveRecord::Base
     else
       return false
     end
+  end
+  
+  def get_image
+    if self.hashed_password? || self.image.nil?
+      return "/images/avatar/avatar.png"
+    else
+      return self.image
+    end
+  end
+  
+  def spoken_languages
+    languages = Array.new
+    self.translations.each do |trans|
+      unless languages.include?(trans.language.name)
+        languages.push(trans.language.name)
+      end
+    end
+    
+    self.expressions.each do |exp|
+      unless languages.include?(exp.language.name)
+        languages.push(exp.language.name)
+      end
+    end
+    
+    return languages
   end
   
   def level

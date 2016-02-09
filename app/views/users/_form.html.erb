@@ -33,7 +33,7 @@
 		<% else %>
 			<div class="default_fields" style="display: none;>
 			    <%= f.label :name, t(:full_name)%>
-			    <%= f.text_field :name, :value => current_user.name %>
+			    <%= f.text_field :name, :value => @user.name %>
 			</div>
 			<div class="default_fields">
 			    <%= f.label :username, t(:username)%>
@@ -42,7 +42,13 @@
 			<br />
 			<div class="default_fields" style="display: none;>
 			    <%= f.label :mail, t(:email_address)%>
-			    <%= f.text_field :mail, :value => current_user.mail %>
+			    <%= f.text_field :mail, :value => @user.mail %>
+			</div>
+		<% end %>
+		<% if current_user.role == "admin" %>
+			<div class="default_fields">
+			    <%= f.label :role, t(:role)%>
+			    <%= f.text_field :role, :value => @user.role %>
 			</div>
 		<% end %>
 	  <div class="actions">
